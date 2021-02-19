@@ -10,7 +10,7 @@ namespace CreatorPileInMidas
     {
         public GeologocalElement GeologocalElement { get; set; }
         public int Number { get; } 
-        public double Thickness { get => LevelTop- LevelBot;}
+        public double Thickness { get => LevelTop - LevelBot;}
         public double LevelTop { get; set; }
         public double LevelBot { get; set; }
 

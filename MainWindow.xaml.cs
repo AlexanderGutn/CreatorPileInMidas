@@ -42,10 +42,16 @@ namespace CreatorPileInMidas
             Borehole borehole1 = new Borehole("Скв1");
             borehole1.AddLayerSoil(layerSoil1);
             borehole1.AddLayerSoil(layerSoil2);
-            borehole1.AddLayerSoil(layerSoil3);
+            borehole1.AddLayerSoil(layerSoil3);            
 
             Borehole borehole2 = new Borehole("Скв2");
             borehole2.AddLayerSoils(layerSoils);
+
+            Borehole borehole3 = new Borehole("Скв2",layerSoils);
+
+
+            Pile pile1 = new Pile(1,95,10,borehole1,0);
+            var a = pile1.GetLayerSoilsBellowGrillage();
 
             int i = 1;
         }

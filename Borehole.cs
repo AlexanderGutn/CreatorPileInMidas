@@ -8,18 +8,25 @@ namespace CreatorPileInMidas
 {
     class Borehole
     {
-        List<LayerSoil> layerSoils = new List<LayerSoil>();
+        public LayerSoils LayerSoils { get; set; }
         public string Name { get; set; }
-        public int CountLayer { get => layerSoils.Count; }
+        public int CountLayer { get => LayerSoils.Count; }
         double LevelTop
         {
             get
             {
                 double result = 0;
-                foreach (var item in layerSoils)
+                //foreach (var item in LayerSoils)
+                //{
+                //    var b = item as LayerSoil; ////
+                //    if (item.LevelTop > result)
+                //        result = item.LevelTop;
+                //}
+                
+
+                while (LayerSoils.MoveNext())
                 {
-                    if (item.LevelTop > result)
-                        result = item.LevelTop;
+                    
                 }
                 return result;
             }
@@ -31,13 +38,13 @@ namespace CreatorPileInMidas
             {
                 if(CountLayer > 0)
                 {
-                    double result = layerSoils[0].LevelBot;
-                    foreach (var item in layerSoils)
-                    {
-                        if (item.LevelBot < result)
-                            result = item.LevelBot;
-                    }
-                    return result;
+                    //double result = LayerSoils[0].LevelBot;
+                    //foreach (var item in LayerSoils)
+                    //{
+                    //    if (item.LevelBot < result)
+                    //        result = item.LevelBot;
+                    //}
+                    //return result;
                 }
                 return 0;
             }
@@ -47,30 +54,47 @@ namespace CreatorPileInMidas
 
         public Borehole(string name)
         {
+            LayerSoils = new LayerSoils();
             Name = name;
+            MyMethod();
         }
+
+        public Borehole(string name, LayerSoils layerSoils)
+        {
+            //LayerSoils = new LayerSoils();
+            Name = name;
+            LayerSoils = layerSoils;
+        }
+
         public void AddLayerSoil(LayerSoil layerSoil)
         {
-            layerSoils.Add(layerSoil);
+            LayerSoils.Add(layerSoil);
         }
 
         public void AddLayerSoils(LayerSoils layerSoils1)
         {
             foreach (var item in layerSoils1)
             {
-                layerSoils.Add(item as LayerSoil);
+                LayerSoils.Add(item as LayerSoil);
             }
-
         }
 
         public void RemoveLayerSoil(LayerSoil layerSoil)
         {
-            layerSoils.Remove(layerSoil);
+            LayerSoils.Remove(layerSoil);
         }
 
         public void ClearLayerSoil()
         {
-            layerSoils.Clear();
+            LayerSoils.Clear();
+        }
+
+        public void MyMethod()
+        {
+            while (LayerSoils.MoveNext())
+            {
+                var a = LayerSoils.Current;
+            }            
         }
 
         public override string ToString()

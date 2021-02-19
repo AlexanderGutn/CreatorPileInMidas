@@ -8,7 +8,7 @@ namespace CreatorPileInMidas
 {
     class GeologocalElements
     {
-        List<GeologocalElement> geologocalElements = null;
+        List<GeologocalElement> geologocalElements;
 
         public GeologocalElements(GeologocalElement geologocalElement)
         {

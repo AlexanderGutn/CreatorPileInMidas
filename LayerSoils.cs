@@ -7,13 +7,16 @@ using System.Threading.Tasks;
 
 namespace CreatorPileInMidas
 {
-    class LayerSoils:IEnumerable
-    {
+    class LayerSoils : IEnumerable, IEnumerator
+    {        
         List<LayerSoil> layerSoils = new List<LayerSoil>();
+
+        public int Count { get => layerSoils.Count; }
+
+        public object Current => throw new NotImplementedException();
 
         public LayerSoils()
         {
-
         }
         public void Add(LayerSoil layerSoil)
         {
@@ -29,9 +32,24 @@ namespace CreatorPileInMidas
             layerSoils.Clear();
         }
 
+        public bool MoveNext()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Reset()
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerator GetEnumerator()
         {
-            return layerSoils.GetEnumerator();
-        }       
+            return ((IEnumerable)layerSoils).GetEnumerator();
+        }
+
+        //public IEnumerator GetEnumerator()
+        //{
+        //    return layerSoils.GetEnumerator();
+        //}
     }
 }
