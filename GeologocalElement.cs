@@ -133,10 +133,10 @@ namespace CreatorPileInMidas
         }
 
 
-        public GeologocalElement(string NumberIGE, GroundEnum groundEnum, double e,double kUser, double IL)
+        public GeologocalElement(string numberIGE, GroundEnum groundEnum, double e,double kUser, double IL)
         {
-            this.NumberIGE = NumberIGE;
-            this.GroundEnum = GroundEnum;
+            this.NumberIGE = numberIGE;
+            this.GroundEnum = groundEnum;
             this.e = e;
             this.IL = IL;
             this.KUser = kUser;

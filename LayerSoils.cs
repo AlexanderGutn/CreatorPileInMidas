@@ -7,47 +7,35 @@ using System.Threading.Tasks;
 
 namespace CreatorPileInMidas
 {
-    class LayerSoils : IEnumerable, IEnumerator
+    class LayerSoils //: IEnumerable
     {        
-        List<LayerSoil> layerSoils = new List<LayerSoil>();
+        //List<LayerSoil> layerSoils = new List<LayerSoil>();
 
-        public int Count { get => layerSoils.Count; }
+        //public int Count { get => layerSoils.Count; }
 
-        public object Current => throw new NotImplementedException();
+        //public LayerSoils()
+        //{
+        //}
+        //public void Add(LayerSoil layerSoil)
+        //{
+        //    layerSoils.Add(layerSoil);
+        //}
+        //public void Remove(LayerSoil layerSoil)
+        //{
+        //    layerSoils.Remove(layerSoil);
+        //}
 
-        public LayerSoils()
-        {
-        }
-        public void Add(LayerSoil layerSoil)
-        {
-            layerSoils.Add(layerSoil);
-        }
-        public void Remove(LayerSoil layerSoil)
-        {
-            layerSoils.Remove(layerSoil);
-        }
+        //public void Clear()
+        //{
+        //    layerSoils.Clear();
+        //}
 
-        public void Clear()
-        {
-            layerSoils.Clear();
-        }
+        //public IEnumerator<LayerSoil> GetEnumerator()
+        //{
+        //    return layerSoils.GetEnumerator();
+        //}
 
-        public bool MoveNext()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Reset()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerator GetEnumerator()
-        {
-            return ((IEnumerable)layerSoils).GetEnumerator();
-        }
-
-        //public IEnumerator GetEnumerator()
+        //IEnumerator IEnumerable.GetEnumerator()
         //{
         //    return layerSoils.GetEnumerator();
         //}

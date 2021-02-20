@@ -10,23 +10,45 @@ namespace CreatorPileInMidas
     {        
         public double Diameter { get; set; }
         public double Length { get; set; }
-        public double LevelTop { get; set; }
-        public double LevelBot { get => LevelTop - Length; }
+        public double LevelTopPile { get; set; }
+        public double LevelBotPile { get => LevelTopPile - Length; }
         public Borehole Borehole { get; set; }
         public double LevelOfLocalErosion { get; set; }
         public double bp { get => Diameter < 0.8 ? 1.5 * Diameter + 0.5 : Diameter + 1; }
 
-        public LayerSoils LayerSoilsBellowGrillage    //Грунты ниже ростверка
+        public List<LayerSoil> LayerSoilsBellowGrillage    //Грунты ниже ростверка
         {
             get
             {
-                LayerSoils LayersTemp = new LayerSoils();
+                List <LayerSoil> LayersTemp = new List<LayerSoil>();
+                int n = 0;
                 foreach (var layer in Borehole.LayerSoils)
                 {
-                    //if(layer.LevelTop > LevelTop && layer.LevelBot < LevelTop)
-                    //    LayersTemp.Add(new LayerSoil(layer.Number,layer.GeologocalElement, LevelBot, layer.LevelBot));
-                    //if (layer.LevelTop < LevelTop)
-                    //    LayersTemp.Add(layer);
+                    if (layer.LevelTop > LevelTopPile && layer.LevelBot < LevelTopPile)
+                        LayersTemp.Add(new LayerSoil(n,layer.GeologocalElement, LevelTopPile, layer.LevelBot));
+                    else if (layer.LevelTop < LevelTopPile)
+                        LayersTemp.Add(new LayerSoil(n, layer.GeologocalElement, layer.LevelTop, layer.LevelBot));
+                    n++;
+                }
+                return LayersTemp;
+            }
+        }
+
+        public List<LayerSoil> LayerSoilsAtPileLevel    //Грунты прорезаемые сваей
+        {
+            get
+            {
+                List<LayerSoil> LayersTemp = new List<LayerSoil>();
+                int n = 0;
+                foreach (var layer in Borehole.LayerSoils)
+                {
+                    if (layer.LevelTop > LevelTopPile && layer.LevelBot < LevelTopPile)
+                        LayersTemp.Add(new LayerSoil(n,layer.GeologocalElement, LevelTopPile, layer.LevelBot));                    
+                    else if (layer.LevelTop < LevelTopPile && layer.LevelBot > LevelBotPile)
+                        LayersTemp.Add(new LayerSoil(n, layer.GeologocalElement, layer.LevelTop, layer.LevelBot));
+                    else if (layer.LevelTop > LevelBotPile && layer.LevelBot < LevelBotPile)
+                        LayersTemp.Add(new LayerSoil(n,layer.GeologocalElement, layer.LevelTop, LevelBotPile));
+                    n++;
                 }
                 return LayersTemp;
             }
@@ -36,7 +58,7 @@ namespace CreatorPileInMidas
         //{
         //    get
         //    {
-        //        //layerSoilsBellowGrillage1 = new List<LayerSoil>();
+        //        layerSoilsBellowGrillage1 = new List<LayerSoil>();
         //        LayerSoilsBellowGrillage1.AddRange(layerSoilsBellowGrillage);
         //        return LayerSoilsBellowGrillage1;
         //    }
@@ -47,24 +69,13 @@ namespace CreatorPileInMidas
         public Pile(double diameter, double levelTop, double length, Borehole borehole, double levelOfLocalErosion)
         {
             Diameter = diameter;
-            LevelTop = levelTop;
+            LevelTopPile = levelTop;
             Length = length;
             Borehole = borehole;
             LevelOfLocalErosion = levelOfLocalErosion;   
         }
 
 
-        public LayerSoils GetLayerSoilsBellowGrillage()    //Грунты ниже ростверка
-        {
-                LayerSoils LayersTemp = new LayerSoils();
-                foreach (var layer in Borehole.LayerSoils)
-                {
-                    //if (layer.LevelTop > LevelTop && layer.LevelBot < LevelTop)
-                    //    LayersTemp.Add(new LayerSoil(layer.Number, layer.GeologocalElement, LevelBot, layer.LevelBot));
-                    //if (layer.LevelTop < LevelTop)
-                    //    LayersTemp.Add(layer);
-                }
-                return LayersTemp;
-        }
+
     }
 }

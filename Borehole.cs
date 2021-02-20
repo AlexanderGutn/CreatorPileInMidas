@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,8 @@ namespace CreatorPileInMidas
 {
     class Borehole
     {
-        public LayerSoils LayerSoils { get; set; }
+        public List<LayerSoil> LayerSoils { get; }
+
         public string Name { get; set; }
         public int CountLayer { get => LayerSoils.Count; }
         double LevelTop
@@ -16,17 +18,11 @@ namespace CreatorPileInMidas
             get
             {
                 double result = 0;
-                //foreach (var item in LayerSoils)
-                //{
-                //    var b = item as LayerSoil; ////
-                //    if (item.LevelTop > result)
-                //        result = item.LevelTop;
-                //}
-                
-
-                while (LayerSoils.MoveNext())
-                {
+                foreach (var item in LayerSoils)
+                {                   
                     
+                    if (item.LevelTop > result)
+                        result = item.LevelTop;
                 }
                 return result;
             }
@@ -38,13 +34,13 @@ namespace CreatorPileInMidas
             {
                 if(CountLayer > 0)
                 {
-                    //double result = LayerSoils[0].LevelBot;
-                    //foreach (var item in LayerSoils)
-                    //{
-                    //    if (item.LevelBot < result)
-                    //        result = item.LevelBot;
-                    //}
-                    //return result;
+                    double result = LayerSoils[0].LevelBot;
+                    foreach (var item in LayerSoils)
+                    {
+                        if (item.LevelBot < result)
+                            result = item.LevelBot;
+                    }
+                    return result;
                 }
                 return 0;
             }
@@ -54,14 +50,12 @@ namespace CreatorPileInMidas
 
         public Borehole(string name)
         {
-            LayerSoils = new LayerSoils();
-            Name = name;
-            MyMethod();
+            LayerSoils = new List<LayerSoil>();
+            Name = name;            
         }
 
-        public Borehole(string name, LayerSoils layerSoils)
-        {
-            //LayerSoils = new LayerSoils();
+        public Borehole(string name, List<LayerSoil> layerSoils)
+        {            
             Name = name;
             LayerSoils = layerSoils;
         }
@@ -71,7 +65,7 @@ namespace CreatorPileInMidas
             LayerSoils.Add(layerSoil);
         }
 
-        public void AddLayerSoils(LayerSoils layerSoils1)
+        public void AddLayerSoils(List<LayerSoil> layerSoils1)
         {
             foreach (var item in layerSoils1)
             {
@@ -89,13 +83,13 @@ namespace CreatorPileInMidas
             LayerSoils.Clear();
         }
 
-        public void MyMethod()
-        {
-            while (LayerSoils.MoveNext())
-            {
-                var a = LayerSoils.Current;
-            }            
-        }
+        //public void MyMethod()
+        //{
+        //    while (LayerSoils.MoveNext())
+        //    {
+        //        var a = LayerSoils.Current;
+        //    }            
+        //}
 
         public override string ToString()
         {
