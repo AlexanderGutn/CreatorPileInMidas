@@ -56,6 +56,8 @@ namespace CreatorPileInMidas
             var a = pile1.LayerSoilsBellowGrillage;
             var a1 = pile1.LayerSoilsAtPileLevel;
 
+            PileAnalyticalScheme pileAnalyticalScheme = new PileAnalyticalScheme(pile1,0.5);
+
             int i = 1;
         }
 

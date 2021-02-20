@@ -58,7 +58,7 @@ namespace CreatorPileInMidas
             }
         }
 
-        double K //kH/м4
+        public double K //kH/м4
         {
             get
             {                

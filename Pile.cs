@@ -16,6 +16,20 @@ namespace CreatorPileInMidas
         public double LevelOfLocalErosion { get; set; }
         public double bp { get => Diameter < 0.8 ? 1.5 * Diameter + 0.5 : Diameter + 1; }
 
+        //public double LengthInGround { get = >;}
+
+        public LayerSoil UnderlyingLayer
+        {
+            get
+            {
+                if (LayerSoilsBellowPile.Count > 0)
+                {
+                    return LayerSoilsBellowPile[0];
+                }
+                return null;
+            }
+        }
+
         public List<LayerSoil> LayerSoilsBellowGrillage    //Грунты ниже ростверка
         {
             get
@@ -48,6 +62,24 @@ namespace CreatorPileInMidas
                         LayersTemp.Add(new LayerSoil(n, layer.GeologocalElement, layer.LevelTop, layer.LevelBot));
                     else if (layer.LevelTop > LevelBotPile && layer.LevelBot < LevelBotPile)
                         LayersTemp.Add(new LayerSoil(n,layer.GeologocalElement, layer.LevelTop, LevelBotPile));
+                    n++;
+                }
+                return LayersTemp;
+            }
+        }
+
+        public List<LayerSoil> LayerSoilsBellowPile    //Грунты ниже сваи
+        {
+            get
+            {
+                List<LayerSoil> LayersTemp = new List<LayerSoil>();
+                int n = 0;
+                foreach (var layer in Borehole.LayerSoils)
+                {
+                    if (layer.LevelTop > LevelBotPile && layer.LevelBot < LevelBotPile)
+                        LayersTemp.Add(new LayerSoil(n, layer.GeologocalElement, LevelBotPile, layer.LevelBot));
+                    else if (layer.LevelTop < LevelBotPile)
+                        LayersTemp.Add(new LayerSoil(n, layer.GeologocalElement, layer.LevelTop, layer.LevelBot));
                     n++;
                 }
                 return LayersTemp;
