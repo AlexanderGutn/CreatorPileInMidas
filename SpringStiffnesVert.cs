@@ -17,5 +17,9 @@ namespace CreatorPileInMidas
             LayerSoilsBellowPile = layerSoilsBellowPile;
             H = h;
         }
+        public override string ToString()
+        {
+            return "Rz = " + Rz + " kH/m";
+        }
     }
 }

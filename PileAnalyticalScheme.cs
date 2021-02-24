@@ -11,12 +11,132 @@ namespace CreatorPileInMidas
         public Pile Pile { get; set; }
         public double Step { get; set; }
         public SpringStiffnesVert SpringStiffnesVert { get; }
+        public List<SpringStiffnesHoriz> SpringStiffnesHoriz
+        {
+            get
+            {
+                List<SpringStiffnesHoriz> SpringStiffnesHorizTemp = new List<SpringStiffnesHoriz>();
+                //Определение поверхности грунта (с учетом уровня размыва)
+                double levelTopGround = (Pile.LevelOfLocalErosion == 0) ? Pile.LevelTopPile : Pile.LevelOfLocalErosion;
+
+                //Определение абсолютных отметок пружин, относительно низа ростверка
+                //int num = Int32.Parse((Pile.Length / Step + 1).ToString());
+                int num = (int)((levelTopGround - Pile.LevelBotPile) / Step + 1);
+
+                double[] coordAbsZ = new double[num];
+                double[] coordRelativeZ = new double[num];
+
+                double remainsPile = levelTopGround - Pile.LevelBotPile;
+
+                coordAbsZ[0] = levelTopGround - Step / 2;
+                coordRelativeZ[0] = Step / 2;
+                remainsPile -= coordRelativeZ[0];
+
+                int index = 1;
+                double zTemp;
+                while (remainsPile - Step > 0)
+                {
+                    zTemp = coordAbsZ[index - 1] - Step;
+                    coordAbsZ[index] = zTemp;
+                    coordRelativeZ[index] = levelTopGround - coordAbsZ[index];
+                    remainsPile -= Step;
+                    index++;
+                }
+
+                //Заполнение последнего элемента
+                if (remainsPile > Step / 2)
+                {
+                    coordRelativeZ[index] = coordRelativeZ[index - 1] + remainsPile / 2;
+                    coordAbsZ[index] = levelTopGround - coordRelativeZ[index];
+                }
+
+                int quantity = 0;
+                for (int i = 0; i < coordRelativeZ.Length; i++)
+                {
+                    if (coordRelativeZ[i] > 0)
+                        quantity++;
+                }
+
+                if (coordRelativeZ.Length > quantity)
+                {
+                    Array.Resize(ref coordAbsZ, quantity);
+                    Array.Resize(ref coordRelativeZ, quantity);
+                }
+
+                double[] t = new double[quantity];
+                double[] z = coordRelativeZ;
+
+                for (int i = 1; i < coordAbsZ.Length; i++)
+                {
+                    if (i == 1)
+                    {
+                        t[i - 1] = levelTopGround - (coordAbsZ[i - 1] * 0.5 + coordAbsZ[i] * 0.5);
+                        t[i] += (coordAbsZ[i - 1] * 0.5 + coordAbsZ[i] * 0.5) - coordAbsZ[i];
+                    }
+                    else
+                    {
+                        t[i - 1] += coordAbsZ[i - 1] - (coordAbsZ[i - 1] * 0.5 + coordAbsZ[i] * 0.5);
+                        t[i] += (coordAbsZ[i - 1] * 0.5 + coordAbsZ[i] * 0.5) - coordAbsZ[i];
+                    }
+                }                
+                t[coordAbsZ.Length-1] += coordAbsZ[coordAbsZ.Length-1] - Pile.LevelBotPile;
+
+                double[] Kh = new double[quantity];
+                List<DimmyElementT> ListDimmyElementT = new List<DimmyElementT>();
+
+                for (int i = 0; i < t.Length; i++)
+                {
+                    ListDimmyElementT.Add(new DimmyElementT(coordAbsZ[i],t[i]));
+                }
+
+
+
+                for (int i = 0; i < coordAbsZ.Length; i++)
+                {
+                    foreach (var layer in Pile.LayerSoilsAtPileLevel)
+                    {
+                        //Элемент е пересекает только 1 слой ИГЭ
+                        if (layer.LevelTop > ListDimmyElementT[i].LevelTop && layer.LevelBot < ListDimmyElementT[i].LevelBot)
+                        {
+                            var a = ListDimmyElementT[i].Height;
+                            ListDimmyElementT[i].ListH.Add(ListDimmyElementT[i].Height);
+                            ListDimmyElementT[i].ListK.Add(layer.GeologocalElement.K);
+                            break;
+                        }
+                        //слой сверху
+                        if (layer.LevelTop > ListDimmyElementT[i].LevelTop && layer.LevelBot < ListDimmyElementT[i].LevelTop)
+                        {
+                            ListDimmyElementT[i].ListH.Add(ListDimmyElementT[i].LevelTop - layer.LevelBot);
+                            ListDimmyElementT[i].ListK.Add(layer.GeologocalElement.K);
+                        }
+                        //Слой уместился внутри
+                        if (layer.LevelTop < ListDimmyElementT[i].LevelTop && layer.LevelBot > ListDimmyElementT[i].LevelBot)
+                        {
+                            ListDimmyElementT[i].ListH.Add(layer.LevelTop - layer.LevelBot);
+                            ListDimmyElementT[i].ListK.Add(layer.GeologocalElement.K);
+                        }
+                        //Слой снизу
+                        if (layer.LevelTop > ListDimmyElementT[i].LevelBot && layer.LevelBot < ListDimmyElementT[i].LevelBot)
+                        {
+                            ListDimmyElementT[i].ListH.Add(layer.LevelTop - ListDimmyElementT[i].LevelBot);
+                            ListDimmyElementT[i].ListK.Add(layer.GeologocalElement.K);
+                        }
+                    }
+                }
+
+                for (int i = 0; i < coordAbsZ.Length; i++)
+                {
+                    SpringStiffnesHorizTemp.Add(new CreatorPileInMidas.SpringStiffnesHoriz(ListDimmyElementT[i].KAverage, z[i], Pile.bp, t[i]));
+                }                
+                return SpringStiffnesHorizTemp;
+            }
+        }
 
         public PileAnalyticalScheme(Pile pile, double step)
         {
             Pile = pile;
             Step = step;
-            SpringStiffnesVert = new SpringStiffnesVert(Pile.UnderlyingLayer,Pile.Length);
+            SpringStiffnesVert = new SpringStiffnesVert(Pile.UnderlyingLayer, Pile.Length);
 
         }
     }

@@ -57,6 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DimmyElementT.cs" />
     <Compile Include="SpringStiffnesHoriz.cs" />
     <Compile Include="SpringStiffnesVert.cs" />
     <Page Include="MainWindow.xaml">

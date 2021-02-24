@@ -14,12 +14,16 @@ namespace CreatorPileInMidas
         public double t { get; }
         public double R { get => K * z * bp * t; }
 
-        public SpringStiffnesHoriz(double K, double z, double bp, double t, double R)
+        public SpringStiffnesHoriz(double K, double z, double bp, double t)
         {
             this.K = K;
             this.z = z;
             this.bp = bp;
-            this.t = R;
+            this.t = t;
+        }
+        public override string ToString()
+        {
+            return $"R={R}kH, z={z};, K={K}";
         }
     }
 }

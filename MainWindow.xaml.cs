@@ -31,33 +31,33 @@ namespace CreatorPileInMidas
             GeologocalElement geologocalElement5 = new GeologocalElement("ИГЭ5", GroundEnum.Песок_средней_крупности, 0.7, 0);
             GeologocalElement geologocalElement6 = new GeologocalElement("ИГЭ6", GroundEnum.Суглинок, 0.71, 0, 0.6);
 
-            LayerSoil layerSoil1 = new LayerSoil(1,geologocalElement1, 100, 90);
-            LayerSoil layerSoil2 = new LayerSoil(2,geologocalElement2, 90, 80);
-            LayerSoil layerSoil3 = new LayerSoil(3,geologocalElement6, 80, 50);
+            LayerSoil layerSoil1 = new LayerSoil(1, geologocalElement1, 100, 90);
+            LayerSoil layerSoil2 = new LayerSoil(2, geologocalElement2, 90, 80);
+            LayerSoil layerSoil3 = new LayerSoil(3, geologocalElement6, 80, 50);
 
-            List<LayerSoil> layerSoils = new List<LayerSoil>();            
+            List<LayerSoil> layerSoils = new List<LayerSoil>();
             layerSoils.Add(layerSoil1);
             layerSoils.Add(layerSoil2);
             layerSoils.Add(layerSoil3);
 
-            Borehole borehole1 = new Borehole("Скв1");            
+            Borehole borehole1 = new Borehole("Скв1");
             borehole1.AddLayerSoil(layerSoil1);
             borehole1.AddLayerSoil(layerSoil2);
-            borehole1.AddLayerSoil(layerSoil3);            
-            
+            borehole1.AddLayerSoil(layerSoil3);
+
 
             Borehole borehole2 = new Borehole("Скв2");
             borehole2.AddLayerSoils(layerSoils);
 
-            Borehole borehole3 = new Borehole("Скв2",layerSoils);
+            Borehole borehole3 = new Borehole("Скв2", layerSoils);
 
 
-            Pile pile1 = new Pile(1,85,10,borehole1,0);
+            Pile pile1 = new Pile(1, 85, 10.2, borehole1, 80);
             var a = pile1.LayerSoilsBellowGrillage;
             var a1 = pile1.LayerSoilsAtPileLevel;
 
-            PileAnalyticalScheme pileAnalyticalScheme = new PileAnalyticalScheme(pile1,0.5);
-
+            PileAnalyticalScheme pileAnalyticalScheme = new PileAnalyticalScheme(pile1, 1);
+            var temp = pileAnalyticalScheme.SpringStiffnesHoriz;
             int i = 1;
         }
 
