@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 namespace CreatorPileInMidas
 {
     class Pile
-    {        
+    {
+        public double CoordinateTopX { get; set; } = 0;
+        public double CoordinateTopY { get; set; }
         public double Diameter { get; set; }
         public double Length { get; set; }
         public double LevelTopPile { get; set; }
@@ -46,6 +48,7 @@ namespace CreatorPileInMidas
                 }
                 return LayersTemp;
             }
+
         }
 
         public List<LayerSoil> LayerSoilsAtPileLevel    //Грунты прорезаемые сваей
@@ -85,17 +88,6 @@ namespace CreatorPileInMidas
                 return LayersTemp;
             }
         }
-
-        //public List<LayerSoil> LayerSoilsBellowGrillage1
-        //{
-        //    get
-        //    {
-        //        layerSoilsBellowGrillage1 = new List<LayerSoil>();
-        //        LayerSoilsBellowGrillage1.AddRange(layerSoilsBellowGrillage);
-        //        return LayerSoilsBellowGrillage1;
-        //    }
-        //}
-
 
 
         public Pile(double diameter, double levelTop, double length, Borehole borehole, double levelOfLocalErosion)

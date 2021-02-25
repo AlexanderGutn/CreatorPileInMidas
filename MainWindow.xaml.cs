@@ -58,6 +58,19 @@ namespace CreatorPileInMidas
 
             PileAnalyticalScheme pileAnalyticalScheme = new PileAnalyticalScheme(pile1, 1);
             var temp = pileAnalyticalScheme.SpringStiffnesHoriz;
+
+            //List<Node> node = new List<Node>();
+            //for (int j = 0; j < 20; j++)
+            //{
+            //    //node.Add(CreatorNode.CreateNode(j, 0, 0));
+            //    node.Add(Node.CreateNode(j, 0, 0));
+
+
+            //}
+
+
+            string command = pileAnalyticalScheme.WriteCommandForMidasNode();
+            tbCommand.Text = command;
             int i = 1;
         }
 

@@ -57,7 +57,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CreatorNode.cs" />
     <Compile Include="DimmyElementT.cs" />
+    <Compile Include="INode.cs" />
+    <Compile Include="MidasNode.cs" />
+    <Compile Include="Node.cs" />
     <Compile Include="SpringStiffnesHoriz.cs" />
     <Compile Include="SpringStiffnesVert.cs" />
     <Page Include="MainWindow.xaml">
@@ -70,9 +74,7 @@
     </Compile>
     <Compile Include="Borehole.cs" />
     <Compile Include="GeologocalElement.cs" />
-    <Compile Include="GeologocalElements.cs" />
     <Compile Include="LayerSoil.cs" />
-    <Compile Include="LayerSoils.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

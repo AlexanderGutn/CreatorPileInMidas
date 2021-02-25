@@ -8,10 +8,16 @@ namespace CreatorPileInMidas
 {
     class PileAnalyticalScheme
     {
+        private List<Node> nodes;
+        private List<MidasNode> midasNodes;
         public Pile Pile { get; set; }
         public double Step { get; set; }
-        public SpringStiffnesVert SpringStiffnesVert { get; }
-        public List<SpringStiffnesHoriz> SpringStiffnesHoriz
+        public SpringStiffnesVert SpringStiffnesVert { get; }        
+
+        public List<Node> Nodes { get => nodes; }
+        public List<MidasNode> MidasNodes { get => midasNodes; }
+
+        public List<SpringStiffnesHoriz> SpringStiffnesHoriz  //можно переписать по данным Nodes
         {
             get
             {
@@ -137,7 +143,65 @@ namespace CreatorPileInMidas
             Pile = pile;
             Step = step;
             SpringStiffnesVert = new SpringStiffnesVert(Pile.UnderlyingLayer, Pile.Length);
+            Initialaze();
+        }
 
+        public string WriteCommandForMidasNode()
+        {
+            //string result = string.Empty;
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine(MidasNode.Header);
+
+            foreach (var item in MidasNodes)
+            {
+                stringBuilder.AppendLine(item.ToString());
+            }
+
+            return stringBuilder.ToString();
+
+        }
+
+        private void Initialaze()
+        {
+            FillingNodes();
+            FillingMidasNodes();
+        }
+
+        private void FillingNodes()
+        {
+            nodes = new List<Node>();
+
+            //Определение поверхности грунта (с учетом уровня размыва)
+            double levelTopGround = (Pile.LevelOfLocalErosion == 0) ? Pile.LevelTopPile : Pile.LevelOfLocalErosion;
+
+            nodes.Add(Node.CreateNode(Pile.CoordinateTopX, Pile.CoordinateTopY, Pile.LevelTopPile));
+            nodes.Add(Node.CreateNode(Pile.CoordinateTopX, Pile.CoordinateTopY, levelTopGround - Step / 2));
+
+            double remainsPile = levelTopGround - Pile.LevelBotPile - Step / 2;
+            int index = 2;
+
+            while (remainsPile - Step > 0)
+            {
+                nodes.Add(Node.CreateNode(Pile.CoordinateTopX, Pile.CoordinateTopY, nodes[index - 1].Z - Step));
+                remainsPile -= Step;
+                index++;
+            }
+
+            //Заполнение последнего элемента 56КЭ
+            if (remainsPile > Step / 2)
+                nodes.Add(Node.CreateNode(Pile.CoordinateTopX, Pile.CoordinateTopY, nodes[index - 1].Z - remainsPile / 2));
+
+            nodes.Add(Node.CreateNode(Pile.CoordinateTopX, Pile.CoordinateTopY, Pile.LevelBotPile));             
+        }
+
+        private void FillingMidasNodes()
+        {
+            midasNodes = new List<MidasNode>();
+
+            foreach (var node in nodes)
+            {
+                midasNodes.Add(new MidasNode(node.Number, node.X, node.Y, node.Z));
+            }
         }
     }
 }
