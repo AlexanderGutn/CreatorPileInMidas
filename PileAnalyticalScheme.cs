@@ -10,12 +10,13 @@ namespace CreatorPileInMidas
     {
         private List<Node> nodes;
         private List<MidasNode> midasNodes;
+        private List<MidasBeamElement> midasBeamElements;
         public Pile Pile { get; set; }
         public double Step { get; set; }
-        public SpringStiffnesVert SpringStiffnesVert { get; }        
-
+        public SpringStiffnesVert SpringStiffnesVert { get; }
         public List<Node> Nodes { get => nodes; }
         public List<MidasNode> MidasNodes { get => midasNodes; }
+        public List<MidasBeamElement> MidasBeamElements { get => midasBeamElements; }
 
         public List<SpringStiffnesHoriz> SpringStiffnesHoriz  //можно переписать по данным Nodes
         {
@@ -84,15 +85,15 @@ namespace CreatorPileInMidas
                         t[i - 1] += coordAbsZ[i - 1] - (coordAbsZ[i - 1] * 0.5 + coordAbsZ[i] * 0.5);
                         t[i] += (coordAbsZ[i - 1] * 0.5 + coordAbsZ[i] * 0.5) - coordAbsZ[i];
                     }
-                }                
-                t[coordAbsZ.Length-1] += coordAbsZ[coordAbsZ.Length-1] - Pile.LevelBotPile;
+                }
+                t[coordAbsZ.Length - 1] += coordAbsZ[coordAbsZ.Length - 1] - Pile.LevelBotPile;
 
                 double[] Kh = new double[quantity];
                 List<DimmyElementT> ListDimmyElementT = new List<DimmyElementT>();
 
                 for (int i = 0; i < t.Length; i++)
                 {
-                    ListDimmyElementT.Add(new DimmyElementT(coordAbsZ[i],t[i]));
+                    ListDimmyElementT.Add(new DimmyElementT(coordAbsZ[i], t[i]));
                 }
 
 
@@ -132,8 +133,8 @@ namespace CreatorPileInMidas
 
                 for (int i = 0; i < coordAbsZ.Length; i++)
                 {
-                    SpringStiffnesHorizTemp.Add(new CreatorPileInMidas.SpringStiffnesHoriz(ListDimmyElementT[i].KAverage, z[i], Pile.bp, t[i]));
-                }                
+                    SpringStiffnesHorizTemp.Add(new CreatorPileInMidas.SpringStiffnesHoriz(ListDimmyElementT[i].KAverage, z[i], Pile.bpx, Pile.bpy, t[i]));
+                }
                 return SpringStiffnesHorizTemp;
             }
         }
@@ -144,27 +145,13 @@ namespace CreatorPileInMidas
             Step = step;
             SpringStiffnesVert = new SpringStiffnesVert(Pile.UnderlyingLayer, Pile.Length);
             Initialaze();
-        }
-
-        public string WriteCommandForMidasNode()
-        {
-            //string result = string.Empty;
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine(MidasNode.Header);
-
-            foreach (var item in MidasNodes)
-            {
-                stringBuilder.AppendLine(item.ToString());
-            }
-
-            return stringBuilder.ToString();
-
-        }
+        }        
 
         private void Initialaze()
         {
             FillingNodes();
             FillingMidasNodes();
+            FillingMidasElements();
         }
 
         private void FillingNodes()
@@ -191,7 +178,7 @@ namespace CreatorPileInMidas
             if (remainsPile > Step / 2)
                 nodes.Add(Node.CreateNode(Pile.CoordinateTopX, Pile.CoordinateTopY, nodes[index - 1].Z - remainsPile / 2));
 
-            nodes.Add(Node.CreateNode(Pile.CoordinateTopX, Pile.CoordinateTopY, Pile.LevelBotPile));             
+            nodes.Add(Node.CreateNode(Pile.CoordinateTopX, Pile.CoordinateTopY, Pile.LevelBotPile));
         }
 
         private void FillingMidasNodes()
@@ -203,5 +190,27 @@ namespace CreatorPileInMidas
                 midasNodes.Add(new MidasNode(node.Number, node.X, node.Y, node.Z));
             }
         }
+
+        private void FillingMidasElements()
+        {
+            midasBeamElements = new List<MidasBeamElement>();
+
+            for (int i = 1; i < nodes.Count; i++)
+            {
+                midasBeamElements.Add(new MidasBeamElement(i, 100, 100, i, i+1));
+            }
+        }
     }
+
+
+    enum MaterialEnum
+    {
+        B20,
+        B25,
+        B30,
+    }
+
+
 }
+
+

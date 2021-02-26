@@ -52,25 +52,27 @@ namespace CreatorPileInMidas
             Borehole borehole3 = new Borehole("Скв2", layerSoils);
 
 
-            Pile pile1 = new Pile(1, 85, 10.2, borehole1, 80);
+            //Pile pile1 = new Pile(1, 85, 10.2, borehole1, 80);
+            //PileRound pile1 = new PileRound(1, 85, 10.2, borehole1, 80);
+            PileRectangular pile1 = new PileRectangular(0.3,0.8, 85, 10.2, borehole1, 80);
+
             var a = pile1.LayerSoilsBellowGrillage;
             var a1 = pile1.LayerSoilsAtPileLevel;
 
             PileAnalyticalScheme pileAnalyticalScheme = new PileAnalyticalScheme(pile1, 1);
             var temp = pileAnalyticalScheme.SpringStiffnesHoriz;
 
-            //List<Node> node = new List<Node>();
-            //for (int j = 0; j < 20; j++)
-            //{
-            //    //node.Add(CreatorNode.CreateNode(j, 0, 0));
-            //    node.Add(Node.CreateNode(j, 0, 0));
+            DocForMidas docForMidas = new DocForMidas(pileAnalyticalScheme, MaterialEnum.B25, pile1.SideX, pile1.SideY);
 
 
-            //}
+            //string command = pileAnalyticalScheme.WriteCommandForMidasUnit();
+            //command += pileAnalyticalScheme.WriteCommandForMidasNode();
+            //command += pileAnalyticalScheme.WriteCommandForMidasElement();
+            //command += pileAnalyticalScheme.WriteCommandForMidasMaterial(MaterialEnum.B25);
+            //command += pileAnalyticalScheme.WriteCommandForMidasCrossSection(pile1.SideX, pile1.SideY);
+            //command += pileAnalyticalScheme.WriteCommandForMidasSpring();
 
-
-            string command = pileAnalyticalScheme.WriteCommandForMidasNode();
-            tbCommand.Text = command;
+            tbCommand.Text = docForMidas.WriteDoc();
             int i = 1;
         }
 

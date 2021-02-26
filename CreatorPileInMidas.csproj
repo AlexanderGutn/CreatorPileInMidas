@@ -59,9 +59,13 @@
     </ApplicationDefinition>
     <Compile Include="CreatorNode.cs" />
     <Compile Include="DimmyElementT.cs" />
+    <Compile Include="DocForMidas.cs" />
     <Compile Include="INode.cs" />
+    <Compile Include="MidasElement.cs" />
     <Compile Include="MidasNode.cs" />
     <Compile Include="Node.cs" />
+    <Compile Include="PileRectangular.cs" />
+    <Compile Include="PileRound.cs" />
     <Compile Include="SpringStiffnesHoriz.cs" />
     <Compile Include="SpringStiffnesVert.cs" />
     <Page Include="MainWindow.xaml">
