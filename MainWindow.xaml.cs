@@ -50,10 +50,7 @@ namespace CreatorPileInMidas
             borehole2.AddLayerSoils(layerSoils);
 
             Borehole borehole3 = new Borehole("Скв2", layerSoils);
-
-
-            //Pile pile1 = new Pile(1, 85, 10.2, borehole1, 80);
-            //PileRound pile1 = new PileRound(1, 85, 10.2, borehole1, 80);
+            
             PileRectangular pile1 = new PileRectangular(0.3,0.8, 85, 10.2, borehole1, 80);
 
             var a = pile1.LayerSoilsBellowGrillage;
@@ -64,18 +61,39 @@ namespace CreatorPileInMidas
 
             DocForMidas docForMidas = new DocForMidas(pileAnalyticalScheme, MaterialEnum.B25, pile1.SideX, pile1.SideY);
 
-
-            //string command = pileAnalyticalScheme.WriteCommandForMidasUnit();
-            //command += pileAnalyticalScheme.WriteCommandForMidasNode();
-            //command += pileAnalyticalScheme.WriteCommandForMidasElement();
-            //command += pileAnalyticalScheme.WriteCommandForMidasMaterial(MaterialEnum.B25);
-            //command += pileAnalyticalScheme.WriteCommandForMidasCrossSection(pile1.SideX, pile1.SideY);
-            //command += pileAnalyticalScheme.WriteCommandForMidasSpring();
-
             tbCommand.Text = docForMidas.WriteDoc();
             int i = 1;
         }
 
+        private void cbTypeCrossSection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (labDim1 !=null && labDim2!=null && tbDim1 != null && tbDim2 != null)
+            {
+                var a = cbTypeCrossSection.SelectedIndex;
+                if (cbTypeCrossSection.SelectedIndex == 0) //"Круглое"
+                {
+                    var b = this.labDim1;
+                    var c = labDim1;
+                    this.labDim1.Content = "Диаметр";
+                    labDim2.Content = "";
+                    this.tbDim2.IsEnabled = false;
+                    this.labDim2.IsEnabled = false;
+                    tbDim2.Visibility = Visibility.Hidden;
+                    labDim2.Visibility = Visibility.Hidden;
+                }
+                if (cbTypeCrossSection.SelectedIndex == 1) //"Прямоугольное"
+                {
+                    labDim1.Content = "Размер Х";
+                    labDim2.Content = "Размер Y";
+                    tbDim2.IsEnabled = true;
+                    labDim2.IsEnabled = true;
+                    tbDim2.Visibility = Visibility.Visible;
+                    labDim2.Visibility = Visibility.Visible;
+
+                }
+            }
+            
+        }
 
     }
 }
