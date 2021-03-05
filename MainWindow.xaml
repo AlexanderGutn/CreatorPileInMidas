@@ -4,10 +4,23 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CreatorPileInMidas"
-        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="CreatorPileInMidas.MainWindow"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" 
+        xmlns:col="clr-namespace:System.Collections;assembly=mscorlib" 
+        x:Class="CreatorPileInMidas.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="800">
-    <Grid>
+        Title="MainWindow" Height="500" Width="1029">
+
+    <Window.Resources>
+        <ObjectDataProvider x:Key="GroundEnum"
+                MethodName="GetValues" 
+                ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="local:GroundEnum" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
+
+    <Grid HorizontalAlignment="Left" Width="792">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
@@ -33,23 +46,98 @@
 
             </Grid>
         </GroupBox>
-        <TextBox x:Name="tbCommand" HorizontalAlignment="Right" Height="417" Margin="0,11,10,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="451" Grid.Column="1"/>
-        <ComboBox x:Name="cbClassBeton" HorizontalAlignment="Left" Margin="33,334,0,0" VerticalAlignment="Top" Width="52" SelectedIndex="0" Grid.ColumnSpan="2">
-            <TextBlock><Run Text="B20"/></TextBlock>
-            <TextBlock><Run Text="B25"/></TextBlock>
-            <TextBlock><Run Text="B30"/></TextBlock>
-        </ComboBox>
+        <TextBox x:Name="tbCommand" HorizontalAlignment="Right" Height="144" Margin="0,283,514,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="265" Grid.Column="1"/>
         <Grid Grid.Column="1" Margin="74,146,554,292"/>
         <GroupBox Header="Параметры создаваемого кода" HorizontalAlignment="Left" Height="59" VerticalAlignment="Top" Width="192" Margin="8,148,0,0" Grid.ColumnSpan="2">
             <Canvas Margin="2,5,113,24">
-                <CheckBox x:Name="cbCreateCrossSection" Content="Создать сечение" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="16"/>
-                <CheckBox x:Name="cbCreateMaterial" Content="Создать материал" Height="15" VerticalAlignment="Top" Width="125"/>
+                <CheckBox x:Name="chbCreateCrossSection" Content="Создать сечение" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="16"/>
+                <CheckBox x:Name="chbCreateMaterial" Content="Создать материал" Height="15" VerticalAlignment="Top" Width="125"/>
             </Canvas>
         </GroupBox>
-        <Label Content="Класс бетона" Margin="93,332,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="84" Grid.ColumnSpan="2" RenderTransformOrigin="1.071,-0.346"/>
-        <Button Content="Создать код для Midas" HorizontalAlignment="Left" Margin="11,214,0,0" VerticalAlignment="Top" Width="187" Height="28" Grid.ColumnSpan="2"/>
-        <Grid Height="62" Margin="21,322,609,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <Button x:Name="bCreateCodeForMidas" Content="Создать код для Midas" HorizontalAlignment="Left" Margin="11,214,0,0" VerticalAlignment="Top" Width="187" Height="28" Grid.ColumnSpan="2" Click="bCreateCodeForMidas_Click"/>
+        <Grid Height="26" Margin="10,118,621,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
+            <ComboBox x:Name="cbClassBeton" HorizontalAlignment="Left" Margin="8,1,0,0" VerticalAlignment="Top" Width="52" SelectedIndex="0" Height="23">
+                <TextBlock><Run Text="B20"/></TextBlock>
+                <TextBlock><Run Text="B25"/></TextBlock>
+                <TextBlock><Run Text="B30"/></TextBlock>
+            </ComboBox>
+            <Label Content="Класс бетона" Margin="71,-1,0,0" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Width="84" RenderTransformOrigin="1.071,-0.346"/>
+        </Grid>
+        <DataGrid HorizontalAlignment="Left" Height="123" Margin="451,57,-70,0" VerticalAlignment="Top" Width="411" ItemsSource="{DynamicResource ResourceKey=phones}" Grid.ColumnSpan="2">
+            <DataGrid.Resources>
+                <col:ArrayList x:Key="phones">
+                    <local:Phone Title="iPhone 6S" Company="Apple" Price="54990" />
+                    <local:Phone Title="Lumia 950" Company="Microsoft" Price="39990" />
+                    <local:Phone Title="Nexus 5X" Company="Google" Price="29990" />
+                </col:ArrayList>
+            </DataGrid.Resources>
+        </DataGrid>
+        <ListView Name="phonesList" ItemsSource="{DynamicResource phones}" HorizontalAlignment="Left" Height="110" Margin="66,291,0,0" VerticalAlignment="Top" Width="300">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}">Модель</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Company}" Width="100">Компания</GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=Price}">Цена</GridViewColumn>
+                </GridView>
+            </ListView.View>
+            <ListView.Resources>
+                <col:ArrayList x:Key="phones">
+                    <!--<local:Phone Title="iPhone 6S" Company="Apple" Price="54990" />
+                    <local:Phone Title="Lumia 950" Company="Microsoft" Price="39990" />
+                    <local:Phone Title="Nexus 5X" Company="Google" Price="29990" />
+                    <local:Phone Title = "Galaxy Edge" Company = "Samsung" Price = "45670" />-->
+                </col:ArrayList>
+            </ListView.Resources>
+        </ListView>
 
+
+
+        <DataGrid x:Name="DGTableIGE" Grid.Column="1" HorizontalAlignment="Left" Height="131" Margin="60,247,-121,0" VerticalAlignment="Top" Width="487"
+                  ItemsSource="{Binding}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="N" Binding="{Binding Path = Number}" Width=" 30" />
+                <DataGridTextColumn Header="ИГЭ" Binding="{Binding Path = NumberIGE}" Width=" 50" />
+                <DataGridComboBoxColumn Header="Наименование грунта"  Width=" 100" SelectedItemBinding="{Binding Status}" ItemsSource="{Binding Source={StaticResource GroundEnum}}">
+
+                </DataGridComboBoxColumn>
+                <!--<DataGridComboBoxColumn.ItemsSource>
+                        <col:ArrayList>
+                            <local:GroundEnum>Глина</local:GroundEnum>
+                            <local:GroundEnum>Суглинок</local:GroundEnum>
+
+                            -->
+                <!--<System:GroundEnum>Глина</System:GroundEnum>
+                            <System:String>Суглинок</System:String>
+                            <System:String>Супесь</System:String>
+                            <System:String>Лёссовый_грунт</System:String>
+                            <System:String>Песок_пылеватый</System:String>
+                            <System:String>Песок_мелкий</System:String>
+                            <System:String>Песок_средней_крупности</System:String>
+                            <System:String>Песок_крупный</System:String>
+                            <System:String>Песок_гравилистый</System:String>
+                            <System:String>Торф_ил</System:String>-->
+                <!--
+                        </col:ArrayList>-->
+                <!--</DataGridComboBoxColumn.ItemsSource>-->
+
+                <DataGridTextColumn Header="IL" Binding="{Binding Path = IL}" Width=" 50" />
+                <DataGridTextColumn Header="e" Binding="{Binding Path = e}" Width=" 50" />
+                <DataGridTextColumn Header="K" Binding="{Binding Path = K}" Width=" 50" />
+                <DataGridTextColumn Header="Кпольз" Binding="{Binding Path = KUser}" Width=" 70" />
+                <DataGridTextColumn Header="Кпринят" Binding="{Binding Path = KApply}" Width=" 70" />
+
+
+
+
+
+
+                <!--GroundEnum-->
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="cbAdd" Content="Добавить" Grid.Column="1" HorizontalAlignment="Left" Margin="395,393,-44,0" VerticalAlignment="Top" Width="75" Click="cbAdd_Click"/>
+        <Button x:Name="cbDel" Content="Удалить" Grid.Column="1" HorizontalAlignment="Left" Margin="475,393,-124,0" VerticalAlignment="Top" Width="75"/>
+        <TextBox x:Name="tbNumbIGE" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="195,390,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="44"/>
+        <Button x:Name="cbApply" Content="Применить" Grid.Column="1" HorizontalAlignment="Left" Margin="251,391,0,0" VerticalAlignment="Top" Width="75"/>
 
 
     </Grid>

@@ -64,6 +64,7 @@
     <Compile Include="MidasElement.cs" />
     <Compile Include="MidasNode.cs" />
     <Compile Include="Node.cs" />
+    <Compile Include="Phone.cs" />
     <Compile Include="PileRectangular.cs" />
     <Compile Include="PileRound.cs" />
     <Compile Include="SpringStiffnesHoriz.cs" />

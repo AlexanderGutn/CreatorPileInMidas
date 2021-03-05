@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace CreatorPileInMidas
         public MainWindow()
         {
             InitializeComponent();
-
+            Debug.Print("Начало");
             GeologocalElement geologocalElement1 = new GeologocalElement("ИГЭ1", GroundEnum.Песок_крупный, 0.55, 100);
             GeologocalElement geologocalElement2 = new GeologocalElement("ИГЭ2", GroundEnum.Глина, 0.5, 0, 0.4);
             GeologocalElement geologocalElement3 = new GeologocalElement("ИГЭ3", GroundEnum.Песок_мелкий, 0.6, 0);
@@ -95,5 +96,18 @@ namespace CreatorPileInMidas
             
         }
 
+        private void bCreateCodeForMidas_Click(object sender, RoutedEventArgs e)
+        {
+            Debug.Print("Создание кода для Мидас");
+        }
+
+        List<GeologocalElement> ListGeologocalElements = new List<GeologocalElement>();
+        private void cbAdd_Click(object sender, RoutedEventArgs e)
+        {
+            ListGeologocalElements.Add(new GeologocalElement("ИГЭ1", GroundEnum.Песок_крупный, 0.55, 100));
+            DGTableIGE.ItemsSource = ListGeologocalElements;
+            //DGTableIGE.Items.Add(new GeologocalElement("ИГЭ1", GroundEnum.Песок_крупный, 0.55, 100));
+            DGTableIGE.Items.Refresh();
+        }
     }
 }

@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 namespace CreatorPileInMidas
 {
     class GeologocalElement
-    {        
-        public string NumberIGE { get; }
-        public GroundEnum GroundEnum { get; }
-        public double e { get; }
-        public double IL { get; }
+    {
+        public int Number { get; }
+        public string NumberIGE { get; set; }
+        public GroundEnum GroundEnum { get; set; }
+        public double e { get; set; }
+        public double IL { get; set; }
         public double KUser { get; set; }
+        public double KApply { get => KUser > 0 ? KUser : K; }
 
         public TypeGroundEnum TypeGroundEnum
         {
@@ -61,7 +63,7 @@ namespace CreatorPileInMidas
         public double K //kH/м4
         {
             get
-            {                
+            {
                 if (KUser > 0)
                 {
                     return KUser;
@@ -72,9 +74,9 @@ namespace CreatorPileInMidas
                     switch (GroundEnum)
                     {
                         case GroundEnum.Глина:
-                            if(-1 <= IL && IL <= 0)
+                            if (-1 <= IL && IL <= 0)
                                 result = InterpolationSingle(-1, 0, 30000, 18000, e);
-                            else if(0 <= IL && IL <= 0.5)                            
+                            else if (0 <= IL && IL <= 0.5)
                                 result = InterpolationSingle(0, 0.5, 18000, 12000, e);
                             else if (0.5 <= IL && IL <= 0.75)
                                 result = InterpolationSingle(0.5, 0.75, 12000, 7000, e);
@@ -97,7 +99,7 @@ namespace CreatorPileInMidas
                             else if (0 <= IL && IL <= 0.5)
                                 result = InterpolationSingle(0, 0.5, 12000, 8667, e);
                             else if (0.5 <= IL && IL <= 0.75)
-                                result = InterpolationSingle(0.5, 0.75, 8667, 7000, e);                            
+                                result = InterpolationSingle(0.5, 0.75, 8667, 7000, e);
                             break;
                         case GroundEnum.Лёссовый_грунт:  //Принял как супесь
                             if (-1 <= IL && IL <= 0)
@@ -128,12 +130,12 @@ namespace CreatorPileInMidas
                             break;
                     }
                     return result;
-                }                
+                }
             }
         }
 
 
-        public GeologocalElement(string numberIGE, GroundEnum groundEnum, double e,double kUser, double IL)
+        public GeologocalElement(string numberIGE, GroundEnum groundEnum, double e, double kUser, double IL)
         {
             this.NumberIGE = numberIGE;
             this.GroundEnum = groundEnum;
@@ -147,7 +149,7 @@ namespace CreatorPileInMidas
             this.GroundEnum = groundEnum;
             this.e = e;
             this.IL = 0;
-            this.KUser = kUser;            
+            this.KUser = kUser;
         }
 
         double InterpolationSingle(double x1, double x2, double y1, double y2, double x)
@@ -170,7 +172,7 @@ namespace CreatorPileInMidas
 
     }
 
-    enum GroundEnum
+    public enum GroundEnum
     {
         Глина,
         Суглинок,
