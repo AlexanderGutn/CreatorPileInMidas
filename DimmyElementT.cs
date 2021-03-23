@@ -45,7 +45,5 @@ namespace CreatorPileInMidas
             //return "{Height}, {LevelTopT}, {LevelBotT}, кол-во слоев {ListH.Count}";
             //return $"R={R}kH, z={z};, K={K}";
         }
-
-
     }
 }
