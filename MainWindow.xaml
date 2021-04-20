@@ -8,7 +8,7 @@
         xmlns:col="clr-namespace:System.Collections;assembly=mscorlib" 
         x:Class="CreatorPileInMidas.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="1029">
+        Title="MainWindow" Height="582" Width="1092">
 
     <Window.Resources>
         <ObjectDataProvider x:Key="GroundEnum"
@@ -34,13 +34,12 @@
                     <ColumnDefinition Width="194*"/>
                 </Grid.ColumnDefinitions>
                 <ComboBox x:Name="cbTypeCrossSection" HorizontalAlignment="Left" Margin="0,3,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="1" SelectionChanged="cbTypeCrossSection_SelectionChanged" Grid.ColumnSpan="4">
-                    <TextBlock><Run Text="Круглое"/></TextBlock>
+                    <TextBlock HorizontalAlignment="Center"><Run Text="Круглое"/></TextBlock>
                     <TextBlock HorizontalAlignment="Center"><Run Text="Прямоугольное"/></TextBlock>
                 </ComboBox>
                 <Label Content="Тип поперечного сечения" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Top" Grid.Column="3"/>
                 <Label x:Name="labDim1" Content="Размер Х" HorizontalAlignment="Left" Margin="45,30,0,0" VerticalAlignment="Top" Grid.Column="2" Grid.ColumnSpan="2"/>
                 <TextBox x:Name="tbDim1" HorizontalAlignment="Left" Height="20" Margin="2,32,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top" Width="50" Text="0.35" Grid.ColumnSpan="3"/>
-
                 <TextBox x:Name="tbDim2" HorizontalAlignment="Left" Height="20" Margin="2,56,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top" Width="50" Text="0.5" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="3"/>
                 <Label x:Name="labDim2" Content="Размер Y" HorizontalAlignment="Left" Margin="45,52,0,0" VerticalAlignment="Top" Grid.Column="2" Grid.ColumnSpan="2" />
 
@@ -68,7 +67,7 @@
                 <col:ArrayList x:Key="phones">
                     <local:Phone Title="iPhone 6S" Company="Apple" Price="54990" />
                     <local:Phone Title="Lumia 950" Company="Microsoft" Price="39990" />
-                    <local:Phone Title="Nexus 5X" Company="Google" Price="29990" />
+                    <local:Phone Title="Nexus 5X" Company="Google" Price="29990" />                   
                 </col:ArrayList>
             </DataGrid.Resources>
         </DataGrid>
@@ -97,9 +96,10 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="N" Binding="{Binding Path = Number}" Width=" 30" />
                 <DataGridTextColumn Header="ИГЭ" Binding="{Binding Path = NumberIGE}" Width=" 50" />
-                <DataGridComboBoxColumn Header="Наименование грунта"  Width=" 100" SelectedItemBinding="{Binding Status}" ItemsSource="{Binding Source={StaticResource GroundEnum}}">
-
-                </DataGridComboBoxColumn>
+                <DataGridComboBoxColumn Header="Наименование грунта"  Width=" 100" ItemsSource="{Binding Source={StaticResource GroundEnum}}"/>
+                <!--<DataGridComboBoxColumn Header="Наименование грунта"  Width=" 100" SelectedItemBinding="{Binding Path = }" ItemsSource="{Binding Source={StaticResource GroundEnum}}">-->
+                
+                
                 <!--<DataGridComboBoxColumn.ItemsSource>
                         <col:ArrayList>
                             <local:GroundEnum>Глина</local:GroundEnum>
@@ -125,10 +125,6 @@
                 <DataGridTextColumn Header="K" Binding="{Binding Path = K}" Width=" 50" />
                 <DataGridTextColumn Header="Кпольз" Binding="{Binding Path = KUser}" Width=" 70" />
                 <DataGridTextColumn Header="Кпринят" Binding="{Binding Path = KApply}" Width=" 70" />
-
-
-
-
 
 
                 <!--GroundEnum-->

@@ -37,7 +37,7 @@ namespace CreatorPileInMidas
             }
         }
 
-        public List<LayerSoil> LayerSoilsBellowGrillage    //Грунты ниже ростверка
+        public List<LayerSoil> LayerSoilsBelowGrillage    //Грунты ниже ростверка
         {
             get
             {

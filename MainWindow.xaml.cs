@@ -54,7 +54,7 @@ namespace CreatorPileInMidas
             
             PileRectangular pile1 = new PileRectangular(0.3,0.8, 85, 10.2, borehole1, 80);
 
-            var a = pile1.LayerSoilsBellowGrillage;
+            var a = pile1.LayerSoilsBelowGrillage;
             var a1 = pile1.LayerSoilsAtPileLevel;
 
             PileAnalyticalScheme pileAnalyticalScheme = new PileAnalyticalScheme(pile1, 1);
