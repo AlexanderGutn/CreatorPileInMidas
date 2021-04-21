@@ -21,6 +21,10 @@ namespace CreatorPileInMidas
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<GeologocalElement> ListGeologocalElements = new List<GeologocalElement>();
+        DocForMidas docForMidas;
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -60,7 +64,7 @@ namespace CreatorPileInMidas
             PileAnalyticalScheme pileAnalyticalScheme = new PileAnalyticalScheme(pile1, 1);
             var temp = pileAnalyticalScheme.SpringStiffnesHoriz;
 
-            DocForMidas docForMidas = new DocForMidas(pileAnalyticalScheme, MaterialEnum.B25, pile1.SideX, pile1.SideY);
+            docForMidas = new DocForMidas(pileAnalyticalScheme, MaterialEnum.B25, pile1.SideX, pile1.SideY);
 
             tbCommand.Text = docForMidas.WriteDoc();
             int i = 1;
@@ -76,6 +80,7 @@ namespace CreatorPileInMidas
                     var b = this.labDim1;
                     var c = labDim1;
                     this.labDim1.Content = "Диаметр";
+                    tbDim1.Text = "0.8";
                     labDim2.Content = "";
                     this.tbDim2.IsEnabled = false;
                     this.labDim2.IsEnabled = false;
@@ -86,6 +91,8 @@ namespace CreatorPileInMidas
                 {
                     labDim1.Content = "Размер Х";
                     labDim2.Content = "Размер Y";
+                    tbDim1.Text = "0.35";
+                    tbDim2.Text = "0.35";
                     tbDim2.IsEnabled = true;
                     labDim2.IsEnabled = true;
                     tbDim2.Visibility = Visibility.Visible;
@@ -98,16 +105,74 @@ namespace CreatorPileInMidas
 
         private void bCreateCodeForMidas_Click(object sender, RoutedEventArgs e)
         {
-            Debug.Print("Создание кода для Мидас");
+            docForMidas.WriteDoc();
+        }
+        private void bCopyCodeForMidas_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.Clear();
+            Clipboard.SetText(tbCommand.Text);
         }
 
-        List<GeologocalElement> ListGeologocalElements = new List<GeologocalElement>();
+        
+
+        private void calcDataGrid()
+        {
+            int num = 1;
+            foreach (var geoElement in ListGeologocalElements)
+            {
+                geoElement.Number = num;
+                num++;
+            }
+            DGTableIGE.Items.Refresh();
+            
+        }
+
         private void cbAdd_Click(object sender, RoutedEventArgs e)
         {
-            ListGeologocalElements.Add(new GeologocalElement("ИГЭ1", GroundEnum.Песок_крупный, 0.55, 100));
-            DGTableIGE.ItemsSource = ListGeologocalElements;
-            //DGTableIGE.Items.Add(new GeologocalElement("ИГЭ1", GroundEnum.Песок_крупный, 0.55, 100));
-            DGTableIGE.Items.Refresh();
+            ListGeologocalElements.Add(new GeologocalElement("ИГЭ", GroundEnum.Песок_крупный, 0, 0));
+            DGTableIGE.ItemsSource = ListGeologocalElements; 
+            calcDataGrid();
         }
+
+        private void cbApply_Click(object sender, RoutedEventArgs e)
+        {
+            int.TryParse(tbNumbIGE.Text, out int numbIGE);
+            DGTableIGE.ItemsSource = ListGeologocalElements;
+            if (ListGeologocalElements.Count < numbIGE)
+            {
+                for (int i = ListGeologocalElements.Count; i < numbIGE; i++)
+                {
+                    ListGeologocalElements.Add(new GeologocalElement("", GroundEnum.Песок_крупный, 0, 0));
+                }                
+            }
+            calcDataGrid();
+
+        }
+
+        private void cbDel_Click(object sender, RoutedEventArgs e)
+        {
+            DGTableIGE.ItemsSource = ListGeologocalElements;
+            int numSelect = DGTableIGE.SelectedItems.Count;
+            var a = DGTableIGE.SelectedItems as GeologocalElement;
+
+            for (int i = 0; i < numSelect; i++)
+            {
+                ListGeologocalElements.Remove(DGTableIGE.SelectedItems[i] as GeologocalElement);
+            }
+            //var a = DGTableIGE.SelectedItem as GeologocalElement;
+            //ListGeologocalElements.Remove(a);
+            
+            calcDataGrid();
+
+
+
+        }
+
+        private void DGTableIGE_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            calcDataGrid();
+        }
+
+
     }
 }

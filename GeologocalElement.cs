@@ -8,7 +8,7 @@ namespace CreatorPileInMidas
 {
     class GeologocalElement
     {
-        public int Number { get; }
+        public int Number { get; set; }
         public string NumberIGE { get; set; }
         public GroundEnum GroundEnum { get; set; }
         public double e { get; set; }
@@ -64,12 +64,12 @@ namespace CreatorPileInMidas
         {
             get
             {
-                if (KUser > 0)
-                {
-                    return KUser;
-                }
-                else
-                {
+                //if (KUser > 0)
+                //{
+                //    return KUser;
+                //}
+                //else
+                //{
                     double result = 0;
                     switch (GroundEnum)
                     {
@@ -130,7 +130,7 @@ namespace CreatorPileInMidas
                             break;
                     }
                     return result;
-                }
+            //    }
             }
         }
 
