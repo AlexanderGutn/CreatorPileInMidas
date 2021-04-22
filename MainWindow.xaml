@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CreatorPileInMidas"
         xmlns:System="clr-namespace:System;assembly=mscorlib" 
+       
         xmlns:col="clr-namespace:System.Collections;assembly=mscorlib" 
         x:Class="CreatorPileInMidas.MainWindow"
         mc:Ignorable="d"
@@ -22,6 +23,13 @@
         <!--стиль заголовков-->
         <Style x:Key="DGridCentAl" TargetType="DataGridColumnHeader">
             <Setter Property="Thumb.HorizontalContentAlignment" Value="Center" />
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock TextWrapping="Wrap" Text="{Binding}"></TextBlock>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
         <!--стиль ячеек-->
         <Style x:Key="DGridCellPrivare" TargetType="DataGridCell">
@@ -78,32 +86,7 @@
                 <CheckBox x:Name="chbCreateMaterial" Content="Создать материал" Height="15" VerticalAlignment="Top" Width="125"/>
             </Canvas>
         </GroupBox>
-        <DataGrid HorizontalAlignment="Left" Height="123" Margin="1182,202,-801,0" VerticalAlignment="Top" Width="411" ItemsSource="{DynamicResource ResourceKey=phones}" Grid.Column="1">
-            <DataGrid.Resources>
-                <col:ArrayList x:Key="phones">
-                    <local:Phone Title="iPhone 6S" Company="Apple" Price="54990" />
-                    <local:Phone Title="Lumia 950" Company="Microsoft" Price="39990" />
-                    <local:Phone Title="Nexus 5X" Company="Google" Price="29990" />
-                </col:ArrayList>
-            </DataGrid.Resources>
-        </DataGrid>
-        <ListView Name="phonesList" ItemsSource="{DynamicResource phones}" HorizontalAlignment="Left" Height="110" Margin="1200,359,-708,0" VerticalAlignment="Top" Width="300" Grid.Column="1">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Title}">Модель</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Company}" Width="100">Компания</GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding Path=Price}">Цена</GridViewColumn>
-                </GridView>
-            </ListView.View>
-            <ListView.Resources>
-                <col:ArrayList x:Key="phones">
-                    <!--<local:Phone Title="iPhone 6S" Company="Apple" Price="54990" />
-                    <local:Phone Title="Lumia 950" Company="Microsoft" Price="39990" />
-                    <local:Phone Title="Nexus 5X" Company="Google" Price="29990" />
-                    <local:Phone Title = "Galaxy Edge" Company = "Samsung" Price = "45670" />-->
-                </col:ArrayList>
-            </ListView.Resources>
-        </ListView>
+
         <GroupBox Grid.Column="1" Header="Координаты верха сваи в Midas, м" HorizontalAlignment="Left" Height="62" Margin="300,72,0,0" VerticalAlignment="Top" Width="213">
             <Grid HorizontalAlignment="Left" Height="61" Margin="-7,-10,0,-15" VerticalAlignment="Top" Width="202">
                 <Grid.ColumnDefinitions>
@@ -118,9 +101,9 @@
                 <TextBox x:Name="tbCoordY" HorizontalAlignment="Left" Height="20" Margin="58,26,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top" Width="50" Text="10"/>
             </Grid>
         </GroupBox>
-        <Grid Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="313" Margin="17,221,0,0" VerticalAlignment="Top" Width="504">
-            <DataGrid x:Name="DGTableIGE" ColumnHeaderStyle="{StaticResource DGridCentAl}" Height="254" Margin="3,29,2,0" VerticalAlignment="Top" HorizontalContentAlignment="Center"
-                  ItemsSource="{Binding}" AutoGenerateColumns="False" SelectedCellsChanged="DGTableIGE_SelectedCellsChanged">
+        <Grid Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="313" Margin="20,223,0,0" VerticalAlignment="Top" Width="504">
+            <DataGrid x:Name="DGTableIGE" ColumnHeaderStyle="{StaticResource DGridCentAl}" Height="254" Margin="-1,29,6,0" VerticalAlignment="Top" HorizontalContentAlignment="Center"
+                  ItemsSource="{Binding}" AutoGenerateColumns="False" SelectionUnit="Cell" SelectedCellsChanged="DGTableIGE_SelectedCellsChanged" SelectionChanged="DGTableIGE_SelectionChanged" KeyUp="DGTableIGE_KeyUp" CellEditEnding="DGTableIGE_CellEditEnding">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="N" Binding="{Binding Number, Mode=OneTime}" Width=" 30" ElementStyle="{StaticResource CenterAligned}">
                         <DataGridTextColumn.CellStyle>
@@ -140,34 +123,102 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Кпольз" Binding="{Binding KUser}" Width=" 70" ElementStyle="{StaticResource CenterAligned}" />
-                    <DataGridTextColumn Header="Кпринят" Binding="{Binding KApply, Mode=OneTime}" Width=" 70" ElementStyle="{StaticResource CenterAligned}" >
+                    <DataGridTextColumn Header="Кпольз" Binding="{Binding KUser}" Width=" 60" ElementStyle="{StaticResource CenterAligned}" />
+                    <DataGridTextColumn Header="Кпринят" Binding="{Binding KApply, Mode=OneTime}" Width=" 60" ElementStyle="{StaticResource CenterAligned}" >
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="{x:Type DataGridCell}">
                                 <Setter Property="Background" Value="{StaticResource clBr}" />
                             </Style>
                         </DataGridTextColumn.CellStyle>
-                    </DataGridTextColumn>                    
+                    </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
 
             <Label Content="Таблица физ-мех свойст грунтов" HorizontalAlignment="Left" Margin="6,3,0,0" VerticalAlignment="Top"/>
             <Button x:Name="cbAdd" Content="Добавить" HorizontalAlignment="Left" Margin="344,289,0,0" VerticalAlignment="Top" Width="75" Click="cbAdd_Click"/>
             <Button x:Name="cbDel" Content="Удалить" HorizontalAlignment="Left" Margin="424,289,0,0" VerticalAlignment="Top" Width="75" Click="cbDel_Click"/>
-            <TextBox x:Name="tbNumbIGE" HorizontalAlignment="Center" Height="23" Margin="166,285,411,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="44" TextAlignment="Center" RenderTransformOrigin="0.909,-0.478"/>
+            <TextBox x:Name="tbNumbIGE" HorizontalAlignment="Center" Height="23" Margin="164,285,296,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="44" TextAlignment="Center" RenderTransformOrigin="0.909,-0.478"/>
             <Button x:Name="cbApply" Content="Применить" HorizontalAlignment="Left" Margin="216,287,0,0" VerticalAlignment="Top" Width="75" Click="cbApply_Click"/>
             <Label Content="Кол-во слоев" HorizontalAlignment="Left" Margin="78,283,0,0" VerticalAlignment="Top"/>
         </Grid>
-        <Grid Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="459" Margin="924,24,0,0" VerticalAlignment="Top" Width="179">
+        <Grid Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="459" Margin="1075,20,-143,0" VerticalAlignment="Top" Width="179">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="41*"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="156*"/>
                 <ColumnDefinition Width="23*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="bCreateCodeForMidas" Content="Создать код для Midas" HorizontalAlignment="Left" Margin="7,6,0,0" VerticalAlignment="Top" Width="166" Height="23" Click="bCreateCodeForMidas_Click" Grid.ColumnSpan="2"/>
-            <TextBox x:Name="tbCommand" HorizontalAlignment="Left" Height="390" Margin="9,34,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="164" Grid.ColumnSpan="2"/>
-            <Button x:Name="bCopyCodeForMidas" Content="Скопировать код для Midas" HorizontalAlignment="Left" Margin="8,430,0,0" VerticalAlignment="Top" Width="166" Height="23" Click="bCopyCodeForMidas_Click" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="tbCommand" HorizontalAlignment="Left" Height="390" Margin="9,34,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="164" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+            <Button x:Name="bCopyCodeForMidas" Content="Скопировать код для Midas" HorizontalAlignment="Left" Margin="8,340,0,0" VerticalAlignment="Top" Width="166" Height="23" Click="bCopyCodeForMidas_Click" Grid.ColumnSpan="2" Grid.Row="1"/>
         </Grid>
-        <Image Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="342" Margin="533,151,0,0" VerticalAlignment="Top" Width="382"/>
+        <Grid Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="405" Margin="528,63,0,0" VerticalAlignment="Top" Width="547">
+            <!--<DataGrid x:Name="DGTableIGE2" ColumnHeaderStyle="{StaticResource DGridCentAl}" Height="254" Margin="3,29,2,0" VerticalAlignment="Top" HorizontalContentAlignment="Center"
+                  ItemsSource="{Binding}" AutoGenerateColumns="False" SelectedCellsChanged="DGTableIGE_SelectedCellsChanged">-->
+            <DataGrid x:Name="DGOneBorehole" ColumnHeaderStyle="{StaticResource DGridCentAl}"  HorizontalAlignment="Center" Height="202" Margin="4,99,293,104" VerticalAlignment="Stretch" Width="250" ColumnHeaderHeight="40" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="N" Binding="{Binding Number, Mode=OneTime}" Width="30" ElementStyle="{StaticResource CenterAligned}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}">
+                                <Setter Property="Background" Value="{StaticResource clBr}" />
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="ИГЭ" Binding="{Binding NumberIGE}" Width=" 50" ElementStyle="{StaticResource CenterAligned}"/>
+                    <DataGridTextColumn Header="Отметка верха, м" Binding="{Binding LevelTop}" Width=" 60" ElementStyle="{StaticResource CenterAligned}"/>
+                    <DataGridTextColumn Header="Отметка низа, м" Binding="{Binding LevelBot}" Width=" 60" ElementStyle="{StaticResource CenterAligned}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Label Content="Данные по скважине" HorizontalAlignment="Left" Margin="16,74,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="cbAdBore" Content="Добавить" HorizontalAlignment="Left" Margin="92,340,0,0" VerticalAlignment="Top" Width="75" Click="cbAdBore_Click"/>
+            <Button x:Name="cbDelBore" Content="Удалить" HorizontalAlignment="Right" Margin="0,340,298,0" VerticalAlignment="Top" Width="75" Click="cbDel_Click" RenderTransformOrigin="0.587,-0.25"/>
+            <TextBox x:Name="tbNumbIGEBore" HorizontalAlignment="Center" Height="23" Margin="104,308,364,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="44" TextAlignment="Center" RenderTransformOrigin="0.909,-0.478"/>
+            <Button x:Name="cbApplyBore" Content="Применить" HorizontalAlignment="Left" Margin="174,310,0,0" VerticalAlignment="Top" Width="75" Click="cbApply_Click"/>
+            <Label Content="Кол-во слоев" HorizontalAlignment="Left" Margin="18,306,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.361,-7.038"/>
+            <TextBox x:Name="tbNumbIGE_Copy1" HorizontalAlignment="Center" Height="23" Margin="80,51,337,0" TextWrapping="Wrap" Text="Скв1" VerticalAlignment="Top" Width="95" TextAlignment="Center" RenderTransformOrigin="0.909,-0.478"/>
+            <Label Content="Скважина:" HorizontalAlignment="Left" Margin="13,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.361,-7.038" IsEnabled="False" Foreground="Black"/>
+            <DataGrid x:Name="DGBoreholes" ColumnHeaderStyle="{StaticResource DGridCentAl}"  HorizontalAlignment="Center" Height="202" Margin="260,98,-3,105" VerticalAlignment="Stretch" Width="290" ColumnHeaderHeight="40" >
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="N" Binding="{Binding Number, Mode=OneTime}" Width="30" ElementStyle="{StaticResource CenterAligned}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}">
+                                <Setter Property="Background" Value="{StaticResource clBr}" />
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Скважина" Binding="{Binding Name}" Width=" 70" ElementStyle="{StaticResource CenterAligned}"/>
+                    <DataGridTextColumn Header="Отметка верха, м" Binding="{Binding LevelTop, Mode=OneTime}" Width=" 60" ElementStyle="{StaticResource CenterAligned}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}">
+                                <Setter Property="Background" Value="{StaticResource clBr}" />
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Отметка низа, м" Binding="{Binding LevelBot, Mode=OneTime}" Width=" 60" ElementStyle="{StaticResource CenterAligned}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}">
+                                <Setter Property="Background" Value="{StaticResource clBr}" />
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Глубина, м" Binding="{Binding Depth, Mode=OneTime}" Width=" 60" ElementStyle="{StaticResource CenterAligned}">
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="{x:Type DataGridCell}">
+                                <Setter Property="Background" Value="{StaticResource clBr}" />
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Button x:Name="cbAdBoreholes" Content="Добавить" HorizontalAlignment="Left" Margin="368,306,0,0" VerticalAlignment="Top" Width="75" Click="cbAdBoreholes_Click"/>
+            <Button x:Name="cbDelBoreholes" Content="Удалить" HorizontalAlignment="Right" Margin="0,305,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.587,-0.25" Click="cbDelBoreholes_Click"/>
+            <Label Content="Данные по скважине" HorizontalAlignment="Left" Margin="276,71,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.244,-0.346"/>
+        </Grid>
+        <Button Content="Button" Grid.Column="1" HorizontalAlignment="Left" Margin="625,574,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
 
 
     </Grid>

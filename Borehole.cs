@@ -9,10 +9,11 @@ namespace CreatorPileInMidas
 {
     class Borehole
     {
+        public int Number { get; set; }
         public List<LayerSoil> LayerSoils { get; }
         public string Name { get; set; }
         public int CountLayer { get => LayerSoils.Count; }
-        double LevelTop
+        public double LevelTop
         {
             get
             {
@@ -27,7 +28,7 @@ namespace CreatorPileInMidas
             }
         }
 
-        double LevelBot
+        public double LevelBot
         {
             get
             {
