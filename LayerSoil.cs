@@ -9,7 +9,7 @@ namespace CreatorPileInMidas
     class LayerSoil
     {
         public GeologocalElement GeologocalElement { get; set; }
-        public int Number { get; } 
+        public int Number { get; set; } 
         public double Thickness { get => LevelTop - LevelBot;}
         public double LevelTop { get; set; }
         public double LevelBot { get; set; }
@@ -20,6 +20,11 @@ namespace CreatorPileInMidas
             GeologocalElement = geologocalElement;            
             LevelTop = levelTop;
             LevelBot = levelDown;
+        }
+
+        public LayerSoil()
+        {
+
         }
         public override string ToString()
         {
