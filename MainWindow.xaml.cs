@@ -40,6 +40,7 @@ namespace CreatorPileInMidas
         bool canDeleteItemBoreholes = false;
 
         List<LayerSoil> ListlayerSoilsSelectBorehole = new List<LayerSoil>();
+        List<Test> ListlayerSoilsSelectBoreholeTemp = new List<Test>();
 
         DocForMidas docForMidas;
 
@@ -109,6 +110,8 @@ namespace CreatorPileInMidas
         //Установка значений по умолчанию и связывание
         private void Initialization()
         {
+            DGWinForm dGWinForm = new DGWinForm();
+
             DGTableIGE.ItemsSource = ListGeologocalElements;
             DGBoreholes.ItemsSource = ListBoreholes;
             ListBoreholes.Add(new Borehole("Скв1"));
@@ -116,8 +119,15 @@ namespace CreatorPileInMidas
 
             currentBorehol = ListBoreholes[0];
             //DGCurrentBorehole.ItemsSource = currentBorehol.LayerSoils;
-            //DGCurrentBorehole.ItemsSource = ListlayerSoilsSelectBorehole;
+            DGCurrentBorehole.ItemsSource = ListlayerSoilsSelectBorehole;
+            ListlayerSoilsSelectBorehole.Clear();
+
+            DGTest.ItemsSource = ListlayerSoilsSelectBoreholeTemp;
+            
         }
+
+        
+
 
         //Считать данные с элементов управления
         private void GetTB()
@@ -208,8 +218,9 @@ namespace CreatorPileInMidas
             //    num++;
             //}
             //this.DGCurrentBorehole.CommitEdit();
-            //this.DGCurrentBorehole.CommitEdit();
-            DGCurrentBorehole.Items.Refresh();
+            //this.DGCurrentBorehole.CDGTest.Items.Clear();
+            DGTest.Items.Refresh();
+
 
         }
 
@@ -250,14 +261,17 @@ namespace CreatorPileInMidas
         {
             //select = DGBoreholes.SelectedItem;
             //select = DGBoreholes.SelectedCells;
-            if (ListlayerSoilsSelectBorehole.Count > 0)
-                DGCurrentBorehole.ItemsSource = ListlayerSoilsSelectBorehole;
+            //if (ListlayerSoilsSelectBorehole.Count > 0)
+            //    DGCurrentBorehole.ItemsSource = ListlayerSoilsSelectBorehole;
 
         }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            ListlayerSoilsSelectBorehole.Clear();            
+            DGCurrentBorehole.Items.Refresh();
             
-            
+
+
             int i = 1;
         }
 
@@ -370,6 +384,10 @@ namespace CreatorPileInMidas
             //        layer.AddLayerSoil(new LayerSoil(0,new GeologocalElement("123",GroundEnum.Глина,0,0),0,0));
             //    }
             //}
+            //ListlayerSoilsSelectBorehole.Add(new LayerSoil(0, new GeologocalElement("123", GroundEnum.Глина, 0, 0), 0, 0));
+            //calcDataGrid();
+            
+            ListlayerSoilsSelectBoreholeTemp.Add(new Test(0, "ИГЭ123", 20, 10));
             calcDataGrid();
         }
 

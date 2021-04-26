@@ -12,9 +12,7 @@
         Title="MainWindow" Height="650" Width="1259">
 
     <Window.Resources>
-        <ObjectDataProvider x:Key="GroundEnum"
-                MethodName="GetValues" 
-                ObjectType="{x:Type System:Enum}">
+        <ObjectDataProvider x:Key="GroundEnum" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="local:GroundEnum" />
             </ObjectDataProvider.MethodParameters>
@@ -44,7 +42,7 @@
         </Style>
     </Window.Resources>
 
-    
+
 
 
     <Grid HorizontalAlignment="Left" Width="1111" Margin="0,0,0,-115">
@@ -158,10 +156,29 @@
             <TextBox x:Name="tbCommand" HorizontalAlignment="Left" Height="390" Margin="9,34,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="164" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
             <Button x:Name="bCopyCodeForMidas" Content="Скопировать код для Midas" HorizontalAlignment="Left" Margin="8,340,0,0" VerticalAlignment="Top" Width="166" Height="23" Click="bCopyCodeForMidas_Click" Grid.ColumnSpan="2" Grid.Row="1"/>
         </Grid>
+
+
+
+
+        <DataGrid x:Name="DGTest" Grid.Column="1" HorizontalAlignment="Left" ItemsSource="{Binding}" Height="149" Margin="781,454,0,0" VerticalAlignment="Top" Width="291" AutoGenerateColumns="false">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="N" Binding="{Binding Number, Mode=OneTime}" Width="30" ElementStyle="{StaticResource CenterAligned}" IsReadOnly="true">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Setter Property="Background" Value="{StaticResource clBr}" />
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="ИГЭ" Binding="{Binding IGE}" Width=" 50" ElementStyle="{StaticResource CenterAligned}"/>
+                <DataGridTextColumn Header="Отметка верха, м" Binding="{Binding LevelTop}" Width=" 60" ElementStyle="{StaticResource CenterAligned}"/>
+                <DataGridTextColumn Header="Отметка низа, м" Binding="{Binding LevelBot}" Width=" 60" ElementStyle="{StaticResource CenterAligned}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
         <Grid Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="335" Margin="534,90,0,0" VerticalAlignment="Top" Width="547">
             <!--<DataGrid x:Name="DGTableIGE2" ColumnHeaderStyle="{StaticResource DGridCentAl}" Height="254" Margin="3,29,2,0" VerticalAlignment="Top" HorizontalContentAlignment="Center"
                   ItemsSource="{Binding}" AutoGenerateColumns="False" SelectedCellsChanged="DGTableIGE_SelectedCellsChanged">-->
-            <DataGrid x:Name="DGCurrentBorehole" ItemsSource="{Binding}" AutoGenerateColumns="False" DataGridCell.Selected="DataGrid_GotFocus" ColumnHeaderStyle="{StaticResource DGridCentAl}"  HorizontalAlignment="Center" Height="202" Margin="296,65,1,68" VerticalAlignment="Stretch" Width="250" ColumnHeaderHeight="40" >
+            <DataGrid x:Name="DGCurrentBorehole" ItemsSource="{Binding}" AutoGenerateColumns="False" ColumnHeaderStyle="{StaticResource DGridCentAl}"  HorizontalAlignment="Center" Height="202" Margin="296,65,1,68" VerticalAlignment="Stretch" Width="250" ColumnHeaderHeight="40" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="N" Binding="{Binding Number, Mode=OneTime}" Width="30" ElementStyle="{StaticResource CenterAligned}" IsReadOnly="true">
                         <DataGridTextColumn.CellStyle>
@@ -170,21 +187,21 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="ИГЭ" Binding="{Binding GeologocalElement}" Width=" 50" ElementStyle="{StaticResource CenterAligned}"/>
+                    <DataGridTextColumn Header="ИГЭ" Binding="{Binding Name}" Width=" 50" ElementStyle="{StaticResource CenterAligned}"/>
                     <DataGridTextColumn Header="Отметка верха, м" Binding="{Binding LevelTop}" Width=" 60" ElementStyle="{StaticResource CenterAligned}"/>
                     <DataGridTextColumn Header="Отметка низа, м" Binding="{Binding LevelBot}" Width=" 60" ElementStyle="{StaticResource CenterAligned}"/>
                 </DataGrid.Columns>
             </DataGrid>
 
             <Label Content="Данные по скважине" HorizontalAlignment="Left" Margin="327,43,0,0" VerticalAlignment="Top"/>
-            <Button x:Name="cbAdBore" Content="Добавить" HorizontalAlignment="Left" Margin="383,308,0,0" VerticalAlignment="Top" Width="75" Click="cbAdBore_Click"/>
+            <Button x:Name="cbAdBore" Content="Добавить" HorizontalAlignment="Left" Margin="358,308,0,0" VerticalAlignment="Top" Width="75" Click="cbAdBore_Click"/>
             <Button x:Name="cbDelBore" Content="Удалить" HorizontalAlignment="Right" Margin="0,308,7,0" VerticalAlignment="Top" Width="75" Click="cbDel_Click" RenderTransformOrigin="0.587,-0.25"/>
             <TextBox x:Name="tbNumbIGEInBore" HorizontalAlignment="Center" Height="23" Margin="413,276,90,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="44" TextAlignment="Center" RenderTransformOrigin="0.909,-0.478"/>
             <Button x:Name="cbApplyBore" Content="Применить" HorizontalAlignment="Left" Margin="465,278,0,0" VerticalAlignment="Top" Width="75" Click="cbApplyBore_Click"/>
             <Label Content="Кол-во слоев" HorizontalAlignment="Left" Margin="309,274,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.361,-7.038"/>
             <TextBox x:Name="tbNameBorehole" HorizontalAlignment="Center" Height="23" Margin="409,20,43,0" TextWrapping="Wrap" Text="Скв1" VerticalAlignment="Top" Width="95" TextAlignment="Center" RenderTransformOrigin="0.909,-0.478"/>
             <Label Content="Скважина:" HorizontalAlignment="Left" Margin="324,19,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.361,-7.038" IsEnabled="False" Foreground="Black"/>
-            <DataGrid x:Name="DGBoreholes" DataGridCell.Selected="DataGrid_GotFocus" ColumnHeaderStyle="{StaticResource DGridCentAl}" AutoGenerateColumns="False"  HorizontalAlignment="Center" Height="202" Margin="0,66,257,67" VerticalAlignment="Stretch" Width="290" ColumnHeaderHeight="40" SelectedCellsChanged="DGBoreholes_SelectedCellsChanged" >
+            <DataGrid x:Name="DGBoreholes" ItemsSource="{Binding}" DataGridCell.Selected="DataGrid_GotFocus" ColumnHeaderStyle="{StaticResource DGridCentAl}" AutoGenerateColumns="False"  HorizontalAlignment="Center" Height="202" Margin="0,66,257,67" VerticalAlignment="Stretch" Width="290" ColumnHeaderHeight="40" SelectedCellsChanged="DGBoreholes_SelectedCellsChanged" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="N" Binding="{Binding Number, Mode=OneTime}" Width="30" ElementStyle="{StaticResource CenterAligned}" IsReadOnly="true">
                         <DataGridTextColumn.CellStyle>
@@ -234,6 +251,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
+
 
 
     </Grid>
