@@ -133,7 +133,7 @@ namespace CreatorPileInMidas
 
                 for (int i = 0; i < coordAbsZ.Length; i++)
                 {
-                    SpringStiffnesHorizTemp.Add(new CreatorPileInMidas.SpringStiffnesHoriz(ListDimmyElementT[i].KAverage, z[i], Pile.bpx, Pile.bpy, t[i]));
+                    SpringStiffnesHorizTemp.Add(new SpringStiffnesHoriz(ListDimmyElementT[i].KAverage, z[i], Pile.bpx, Pile.bpy, t[i]));
                 }
                 return SpringStiffnesHorizTemp;
             }

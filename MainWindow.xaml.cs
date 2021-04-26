@@ -39,8 +39,7 @@ namespace CreatorPileInMidas
         bool canDeleteItemIGE = false;
         bool canDeleteItemBoreholes = false;
 
-        List<LayerSoil> ListlayerSoilsSelectBorehole = new List<LayerSoil>();
-        List<Test> ListlayerSoilsSelectBoreholeTemp = new List<Test>();
+        List<LayerSoil> ListlayerSoilsSelectBorehole = new List<LayerSoil>();        
 
         DocForMidas docForMidas;
 
@@ -51,7 +50,7 @@ namespace CreatorPileInMidas
             InitializeComponent();
             Initialization();
             //GetTB();
-
+           
 
             Debug.Print("Начало");
             //GeologocalElement geologocalElement1 = new GeologocalElement("ИГЭ1", GroundEnum.Песок_крупный, 0.55, 100);
@@ -121,9 +120,8 @@ namespace CreatorPileInMidas
             //DGCurrentBorehole.ItemsSource = currentBorehol.LayerSoils;
             DGCurrentBorehole.ItemsSource = ListlayerSoilsSelectBorehole;
             ListlayerSoilsSelectBorehole.Clear();
-
-            DGTest.ItemsSource = ListlayerSoilsSelectBoreholeTemp;
-            
+              
+            DGCurrentBorehole.CanUserAddRows = false;
         }
 
         
@@ -209,7 +207,7 @@ namespace CreatorPileInMidas
             this.DGBoreholes.CommitEdit();
             this.DGBoreholes.CommitEdit();
             DGBoreholes.Items.Refresh();
-
+            DGCurrentBorehole.Items.Refresh();
             num = 1;
             //foreach (var layerSoil in layerSoilsSelectBorehole)
             //foreach (var layerSoil in currentBorehol.LayerSoils) ///Вылет
@@ -219,7 +217,7 @@ namespace CreatorPileInMidas
             //}
             //this.DGCurrentBorehole.CommitEdit();
             //this.DGCurrentBorehole.CDGTest.Items.Clear();
-            DGTest.Items.Refresh();
+            
 
 
         }
@@ -303,22 +301,22 @@ namespace CreatorPileInMidas
 
         private void cbApplyBore_Click(object sender, RoutedEventArgs e)
         {
-            //GetTB();
-            //if (ListGeologocalElements.Count < numbIGE)
-            //{
-            //    for (int i = ListGeologocalElements.Count; i < numbIGE; i++)
-            //    {
-            //        ListGeologocalElements.Add(new GeologocalElement("", GroundEnum.Песок_крупный, 0, 0));
-            //    }
-            //}
-            //else
-            //{
-            //    for (int i = ListGeologocalElements.Count; i > numbIGE; i--)
-            //    {
-            //        ListGeologocalElements.RemoveAt(ListGeologocalElements.Count - 1);
-            //    }
-            //}
-            //calcDataGrid();
+            GetTB();
+            if (ListGeologocalElements.Count < numbIGE)
+            {
+                for (int i = ListGeologocalElements.Count; i < numbIGE; i++)
+                {
+                    ListGeologocalElements.Add(new GeologocalElement("", GroundEnum.Песок_крупный, 0, 0));
+                }
+            }
+            else
+            {
+                for (int i = ListGeologocalElements.Count; i > numbIGE; i--)
+                {
+                    ListGeologocalElements.RemoveAt(ListGeologocalElements.Count - 1);
+                }
+            }
+            calcDataGrid();
         }
 
         private void cbDel_Click(object sender, RoutedEventArgs e)
@@ -375,19 +373,8 @@ namespace CreatorPileInMidas
         }
 
         private void cbAdBore_Click(object sender, RoutedEventArgs e)
-        {
-            //ListBoreholes.Eq
-            //foreach (var layer in ListlayerSoilsSelectBorehole)
-            //{
-            //    if (layer.Equals(currentBorehol))
-            //    {
-            //        layer.AddLayerSoil(new LayerSoil(0,new GeologocalElement("123",GroundEnum.Глина,0,0),0,0));
-            //    }
-            //}
-            //ListlayerSoilsSelectBorehole.Add(new LayerSoil(0, new GeologocalElement("123", GroundEnum.Глина, 0, 0), 0, 0));
-            //calcDataGrid();
-            
-            ListlayerSoilsSelectBoreholeTemp.Add(new Test(0, "ИГЭ123", 20, 10));
+        { 
+            ListlayerSoilsSelectBorehole.Add(new LayerSoil(0, new GeologocalElement("123", GroundEnum.Глина, 0, 0), 0, 0));
             calcDataGrid();
         }
 
