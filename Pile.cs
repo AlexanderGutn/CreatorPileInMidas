@@ -46,9 +46,9 @@ namespace CreatorPileInMidas
                 foreach (var layer in Borehole.LayerSoils)
                 {
                     if (layer.LevelTop > LevelTopPile && layer.LevelBot < LevelTopPile)
-                        LayersTemp.Add(new LayerSoil(n, layer.GeologocalElement, LevelTopPile, layer.LevelBot));
+                        LayersTemp.Add(new LayerSoil(n,"new", layer.GeologocalElement, LevelTopPile, layer.LevelBot));
                     else if (layer.LevelTop < LevelTopPile)
-                        LayersTemp.Add(new LayerSoil(n, layer.GeologocalElement, layer.LevelTop, layer.LevelBot));
+                        LayersTemp.Add(new LayerSoil(n, "new", layer.GeologocalElement, layer.LevelTop, layer.LevelBot));
                     n++;
                 }
                 return LayersTemp;
@@ -65,11 +65,11 @@ namespace CreatorPileInMidas
                 foreach (var layer in Borehole.LayerSoils)
                 {
                     if (layer.LevelTop > LevelTopPile && layer.LevelBot < LevelTopPile)
-                        LayersTemp.Add(new LayerSoil(n, layer.GeologocalElement, LevelTopPile, layer.LevelBot));
+                        LayersTemp.Add(new LayerSoil(n, "new", layer.GeologocalElement, LevelTopPile, layer.LevelBot));
                     else if (layer.LevelTop < LevelTopPile && layer.LevelBot > LevelBotPile)
-                        LayersTemp.Add(new LayerSoil(n, layer.GeologocalElement, layer.LevelTop, layer.LevelBot));
+                        LayersTemp.Add(new LayerSoil(n, "new", layer.GeologocalElement, layer.LevelTop, layer.LevelBot));
                     else if (layer.LevelTop > LevelBotPile && layer.LevelBot < LevelBotPile)
-                        LayersTemp.Add(new LayerSoil(n, layer.GeologocalElement, layer.LevelTop, LevelBotPile));
+                        LayersTemp.Add(new LayerSoil(n, "new", layer.GeologocalElement, layer.LevelTop, LevelBotPile));
                     n++;
                 }
                 return LayersTemp;
@@ -85,9 +85,9 @@ namespace CreatorPileInMidas
                 foreach (var layer in Borehole.LayerSoils)
                 {
                     if (layer.LevelTop > LevelBotPile && layer.LevelBot < LevelBotPile)
-                        LayersTemp.Add(new LayerSoil(n, layer.GeologocalElement, LevelBotPile, layer.LevelBot));
+                        LayersTemp.Add(new LayerSoil(n, "new", layer.GeologocalElement, LevelBotPile, layer.LevelBot));
                     else if (layer.LevelTop < LevelBotPile)
-                        LayersTemp.Add(new LayerSoil(n, layer.GeologocalElement, layer.LevelTop, layer.LevelBot));
+                        LayersTemp.Add(new LayerSoil(n, "new", layer.GeologocalElement, layer.LevelTop, layer.LevelBot));
                     n++;
                 }
                 return LayersTemp;

@@ -8,29 +8,31 @@ namespace CreatorPileInMidas
 {
     class LayerSoil
     {
+        public int Number { get; set; }
         public string Name { get; set; }
-        public GeologocalElement GeologocalElement { get; set; }
-        public int Number { get; set; } 
+        public GeologocalElement GeologocalElement { get; set; }        
         public double Thickness { get => LevelTop - LevelBot;}
         public double LevelTop { get; set; }
         public double LevelBot { get; set; }
 
-        public LayerSoil(int number, GeologocalElement geologocalElement, double levelTop, double levelDown)
+        public LayerSoil(int number, string name, GeologocalElement geologocalElement, double levelTop, double levelDown)
         {
             Number = number;                      //Можно убрать
+            Name = name;
             GeologocalElement = geologocalElement;            
             LevelTop = levelTop;
             LevelBot = levelDown;
         }
         
-        //public LayerSoil()
-        //{
-
-        //}
-        public override string ToString()
+        public LayerSoil(string name)
         {
-            return Number + " " + GeologocalElement.ToString() + ", Top: " + LevelTop + ", Down: " + LevelBot + ", Мощность: " + Thickness;
+            Name = name;
         }
+
+        //public override string ToString()
+        //{
+        //    return Number + " " + Name + " " + GeologocalElement.ToString() + ", Top: " + LevelTop + ", Down: " + LevelBot + ", Мощность: " + Thickness;
+        //}
     }
 
 }

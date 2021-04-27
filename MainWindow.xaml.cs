@@ -26,7 +26,7 @@ namespace CreatorPileInMidas
 
 
         int numbIGE;
-        List<GeologocalElement> ListGeologocalElements = new List<GeologocalElement>();
+        List<GeologocalElement> ListGeoElements = new List<GeologocalElement>();
         GeologocalElement prevDGIGESelectGeologocalElement;
         int prevDGIGEIndexColumn = -1;
 
@@ -38,12 +38,15 @@ namespace CreatorPileInMidas
         
         bool canDeleteItemIGE = false;
         bool canDeleteItemBoreholes = false;
+        bool canDeleteItemCurrentBoreholes = false;
 
         List<LayerSoil> ListlayerSoilsSelectBorehole = new List<LayerSoil>();        
 
         DocForMidas docForMidas;
 
         int numbIGEinBore;
+
+        List<string> ListIGE = new List<string>();
 
         public MainWindow()
         {
@@ -111,7 +114,7 @@ namespace CreatorPileInMidas
         {
             DGWinForm dGWinForm = new DGWinForm();
 
-            DGTableIGE.ItemsSource = ListGeologocalElements;
+            DGTableIGE.ItemsSource = ListGeoElements;
             DGBoreholes.ItemsSource = ListBoreholes;
             ListBoreholes.Add(new Borehole("Скв1"));
 
@@ -122,6 +125,9 @@ namespace CreatorPileInMidas
             ListlayerSoilsSelectBorehole.Clear();
               
             DGCurrentBorehole.CanUserAddRows = false;
+
+            //Привязка списка доступных значений для ComboBox
+            (DGCurrentBorehole.Columns[1] as DataGridComboBoxColumn).ItemsSource = ListIGE;
         }
 
         
@@ -187,7 +193,7 @@ namespace CreatorPileInMidas
         {
             GetTB();
             int num = 1;
-            foreach (var geoElement in ListGeologocalElements)
+            foreach (var geoElement in ListGeoElements)
             {
                 geoElement.Number = num;
                 num++;
@@ -206,18 +212,37 @@ namespace CreatorPileInMidas
 
             this.DGBoreholes.CommitEdit();
             this.DGBoreholes.CommitEdit();
-            DGBoreholes.Items.Refresh();
-            DGCurrentBorehole.Items.Refresh();
+            DGBoreholes.Items.Refresh();            
+
             num = 1;
             //foreach (var layerSoil in layerSoilsSelectBorehole)
-            //foreach (var layerSoil in currentBorehol.LayerSoils) ///Вылет
-            //{
-            //    layerSoil.Number = num;
-            //    num++;
-            //}
-            //this.DGCurrentBorehole.CommitEdit();
-            //this.DGCurrentBorehole.CDGTest.Items.Clear();
-            
+            foreach (var layerSoil in ListlayerSoilsSelectBorehole) //currentBorehol.LayerSoils
+            {
+                layerSoil.Number = num;
+                num++;
+                var n = layerSoil.Name;
+
+                
+                //{
+                //    int iIGE = ListGeoElements.Where(x => x.NumberNameIGE == layerSoil.Name).ToList()[0].Number;
+                //    layerSoil.GeologocalElement = new GeologocalElement(ListGeoElements[iIGE].NameIGE, 
+                //                            ListGeoElements[iIGE].GroundEnum, ListGeoElements[iIGE].e, ListGeoElements[iIGE].KUser);
+                //}
+                
+
+
+                //layerSoil.Name
+            }
+            DGCurrentBorehole.CommitEdit();
+            DGCurrentBorehole.CommitEdit();
+            DGCurrentBorehole.Items.Refresh(); ;
+
+            //Изменение листа доступных ИГЭ для скважин
+            ListIGE.Clear();
+            foreach (var item in ListGeoElements)
+            {
+                ListIGE.Add(item.NumberNameIGE);
+            }
 
 
         }
@@ -235,11 +260,17 @@ namespace CreatorPileInMidas
                 prevDGIGEIndexColumn = DGTableIGE.CurrentCell.Column.DisplayIndex;
                 prevDGIGESelectGeologocalElement = DGTableIGE.CurrentCell.Item as GeologocalElement;
                 canDeleteItemIGE = true;
-            }            
+            }
+
+            ListIGE.Clear();
+            foreach (var item in ListGeoElements)
+            {
+                ListIGE.Add(item.Number + " " + item.NameIGE);
+            }
+
+            DGCurrentBorehole.Items.Refresh();
         }
 
-        
-        //object select;
         private void DGBoreholes_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
             //select = DGBoreholes.SelectedItem;
@@ -252,74 +283,98 @@ namespace CreatorPileInMidas
                     tbNameBorehole.Text = "";
             }            
             //DGBoreholes.SelectedItem = select;
-            canDeleteItemBoreholes = true;            
+            canDeleteItemBoreholes = true;
+
+            //ListlayerSoilsSelectBorehole = ListBoreholes.Where(x => x.Number == currentBorehol.Number).ToList()[0].LayerSoils;
+
+
+        }
+
+        private void DGCurrentBorehole_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            canDeleteItemCurrentBoreholes = true;
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            //select = DGBoreholes.SelectedItem;
-            //select = DGBoreholes.SelectedCells;
-            //if (ListlayerSoilsSelectBorehole.Count > 0)
-            //    DGCurrentBorehole.ItemsSource = ListlayerSoilsSelectBorehole;
+            currentBorehol.ClearLayerSoil();
+            currentBorehol.AddLayerSoils(ListlayerSoilsSelectBorehole);
+
+            ListBoreholes.Where(x => x.Number == currentBorehol.Number).ToList()[0].AddLayerSoils(ListlayerSoilsSelectBorehole); 
 
         }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            ListlayerSoilsSelectBorehole.Clear();            
-            DGCurrentBorehole.Items.Refresh();
-            
 
 
             int i = 1;
         }
 
-        private void cbAdd_Click(object sender, RoutedEventArgs e)
+        private void cbAddIGE_Click(object sender, RoutedEventArgs e)
         {
-            ListGeologocalElements.Add(new GeologocalElement("ИГЭ", GroundEnum.Песок_крупный, 0, 0));
+            ListGeoElements.Add(new GeologocalElement("ИГЭ", GroundEnum.Песок_крупный, 0, 0));
+            DGTableIGE_SelectedCellsChanged(this, null);
             calcDataGrid();
         }
 
-        private void cbApply_Click(object sender, RoutedEventArgs e)
+        private void cbAdBoreholes_Click(object sender, RoutedEventArgs e)
+        {
+            ListBoreholes.Add(new Borehole("Скв"));
+            calcDataGrid();
+        }
+
+        private void cbAdLayerInBore_Click(object sender, RoutedEventArgs e)
+        {
+            //ListlayerSoilsSelectBorehole.Add(new LayerSoil(0, new GeologocalElement("123", GroundEnum.Глина, 0, 0), 0, 0));
+            ListlayerSoilsSelectBorehole.Add(new LayerSoil("new"));
+
+            calcDataGrid();
+        }
+
+        private void cbApplyIGE_Click(object sender, RoutedEventArgs e)
         {
             GetTB();
-            if (ListGeologocalElements.Count < numbIGE)
+            if (ListGeoElements.Count < numbIGE)
             {
-                for (int i = ListGeologocalElements.Count; i < numbIGE; i++)
+                for (int i = ListGeoElements.Count; i < numbIGE; i++)
                 {
-                    ListGeologocalElements.Add(new GeologocalElement("", GroundEnum.Песок_крупный, 0, 0));
+                    ListGeoElements.Add(new GeologocalElement("", GroundEnum.Песок_крупный, 0, 0));
                 }
             }
             else
             {
-                for (int i = ListGeologocalElements.Count; i > numbIGE; i--)
+                for (int i = ListGeoElements.Count; i > numbIGE; i--)
                 {
-                    ListGeologocalElements.RemoveAt(ListGeologocalElements.Count - 1);
+                    ListGeoElements.RemoveAt(ListGeoElements.Count - 1);
                 }
             }
             calcDataGrid();
         }
 
-        private void cbApplyBore_Click(object sender, RoutedEventArgs e)
+        private void cbApplyLayer_Click(object sender, RoutedEventArgs e)
         {
             GetTB();
-            if (ListGeologocalElements.Count < numbIGE)
+            if (ListlayerSoilsSelectBorehole.Count < numbIGEinBore)
             {
-                for (int i = ListGeologocalElements.Count; i < numbIGE; i++)
+                for (int i = ListlayerSoilsSelectBorehole.Count; i < numbIGEinBore; i++)
                 {
-                    ListGeologocalElements.Add(new GeologocalElement("", GroundEnum.Песок_крупный, 0, 0));
+                    //ListlayerSoilsSelectBorehole.Add(new LayerSoil(0, new GeologocalElement("123", GroundEnum.Глина, 0, 0), 0, 0));
+                    ListlayerSoilsSelectBorehole.Add(new LayerSoil("123"));
+
                 }
             }
             else
             {
-                for (int i = ListGeologocalElements.Count; i > numbIGE; i--)
+                for (int i = ListlayerSoilsSelectBorehole.Count; i > numbIGEinBore; i--)
                 {
-                    ListGeologocalElements.RemoveAt(ListGeologocalElements.Count - 1);
+                    ListlayerSoilsSelectBorehole.RemoveAt(ListlayerSoilsSelectBorehole.Count - 1);
                 }
             }
             calcDataGrid();
         }
 
-        private void cbDel_Click(object sender, RoutedEventArgs e)
+        private void cbDelIGE_Click(object sender, RoutedEventArgs e)
         {
             //Для случая выбора SelectionUnit="FullRow"
             //int numSelect = DGTableIGE.SelectedItems.Count;
@@ -332,13 +387,13 @@ namespace CreatorPileInMidas
 
             if (canDeleteItemIGE)
             {
-                ListGeologocalElements.Remove(prevDGIGESelectGeologocalElement);
+                ListGeoElements.Remove(prevDGIGESelectGeologocalElement);
                 calcDataGrid();
                 canDeleteItemIGE = false;
             }
-            else if(ListGeologocalElements.Count > 0)
+            else if(ListGeoElements.Count > 0)
             {                
-                ListGeologocalElements.RemoveAt(ListGeologocalElements.Count - 1);
+                ListGeoElements.RemoveAt(ListGeoElements.Count - 1);
                 calcDataGrid();
             }
         }
@@ -362,21 +417,28 @@ namespace CreatorPileInMidas
             calcDataGrid();
         }
 
-
-
-
-
-        private void cbAdBoreholes_Click(object sender, RoutedEventArgs e)
+        private void cbDelCurrentBore_Click(object sender, RoutedEventArgs e)
         {
-            ListBoreholes.Add(new Borehole("Скв"));
+            if (canDeleteItemCurrentBoreholes)
+            {
+                int numSelect = DGCurrentBorehole.SelectedItems.Count;
+
+                for (int i = 0; i < numSelect; i++)
+                {
+                    ListlayerSoilsSelectBorehole.Remove(DGCurrentBorehole.SelectedItems[i] as LayerSoil);
+                }
+                canDeleteItemCurrentBoreholes = false;
+            }
+            else if (ListlayerSoilsSelectBorehole.Count > 0)
+            {
+                ListlayerSoilsSelectBorehole.RemoveAt(ListlayerSoilsSelectBorehole.Count - 1);
+            }
             calcDataGrid();
         }
 
-        private void cbAdBore_Click(object sender, RoutedEventArgs e)
-        { 
-            ListlayerSoilsSelectBorehole.Add(new LayerSoil(0, new GeologocalElement("123", GroundEnum.Глина, 0, 0), 0, 0));
-            calcDataGrid();
-        }
+
+
+
 
 
         private void DGTableIGE_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -408,5 +470,7 @@ namespace CreatorPileInMidas
 
             }
         }
+
+
     }
 }

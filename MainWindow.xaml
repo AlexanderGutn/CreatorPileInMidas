@@ -137,10 +137,10 @@
             </DataGrid>
 
             <Label Content="Таблица физ-мех свойст грунтов" HorizontalAlignment="Left" Margin="6,3,0,0" VerticalAlignment="Top"/>
-            <Button x:Name="cbAdd" Content="Добавить" HorizontalAlignment="Left" Margin="344,289,0,0" VerticalAlignment="Top" Width="75" Click="cbAdd_Click"/>
-            <Button x:Name="cbDel" Content="Удалить" HorizontalAlignment="Left" Margin="424,289,0,0" VerticalAlignment="Top" Width="75" Click="cbDel_Click"/>
+            <Button x:Name="cbAdd" Content="Добавить" HorizontalAlignment="Left" Margin="344,285,0,0" VerticalAlignment="Top" Width="75" Click="cbAddIGE_Click"/>
+            <Button x:Name="cbDelIGE" Content="Удалить" HorizontalAlignment="Left" Margin="424,285,0,0" VerticalAlignment="Top" Width="75" Click="cbDelIGE_Click"/>
             <TextBox x:Name="tbNumbIGE" HorizontalAlignment="Center" Height="23" Margin="164,285,296,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="44" TextAlignment="Center" RenderTransformOrigin="0.909,-0.478"/>
-            <Button x:Name="cbApply" Content="Применить" HorizontalAlignment="Left" Margin="216,287,0,0" VerticalAlignment="Top" Width="75" Click="cbApply_Click"/>
+            <Button x:Name="cbApplyIGE" Content="Применить" HorizontalAlignment="Left" Margin="216,286,0,0" VerticalAlignment="Top" Width="75" Click="cbApplyIGE_Click"/>
             <Label Content="Кол-во слоев" HorizontalAlignment="Left" Margin="78,283,0,0" VerticalAlignment="Top"/>
         </Grid>
         <Grid Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="459" Margin="1075,20,-143,0" VerticalAlignment="Top" Width="179">
@@ -160,7 +160,7 @@
         <Grid Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="335" Margin="524,79,0,0" VerticalAlignment="Top" Width="547">
             <!--<DataGrid x:Name="DGTableIGE2" ColumnHeaderStyle="{StaticResource DGridCentAl}" Height="254" Margin="3,29,2,0" VerticalAlignment="Top" HorizontalContentAlignment="Center"
                   ItemsSource="{Binding}" AutoGenerateColumns="False" SelectedCellsChanged="DGTableIGE_SelectedCellsChanged">-->
-            <DataGrid x:Name="DGCurrentBorehole" ItemsSource="{Binding}" AutoGenerateColumns="False" ColumnHeaderStyle="{StaticResource DGridCentAl}"  HorizontalAlignment="Center" Height="202" Margin="296,65,1,68" VerticalAlignment="Stretch" Width="250" ColumnHeaderHeight="40" >
+            <DataGrid x:Name="DGCurrentBorehole" ItemsSource="{Binding}" AutoGenerateColumns="False" ColumnHeaderStyle="{StaticResource DGridCentAl}"  HorizontalAlignment="Center" Height="202" Margin="296,65,1,68" VerticalAlignment="Stretch" Width="250" ColumnHeaderHeight="40" GotFocus="DataGrid_GotFocus" SelectionChanged="DGCurrentBorehole_SelectionChanged" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="N" Binding="{Binding Number, Mode=OneTime}" Width="30" ElementStyle="{StaticResource CenterAligned}" IsReadOnly="true">
                         <DataGridTextColumn.CellStyle>
@@ -169,19 +169,20 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="ИГЭ" Binding="{Binding Name}" Width=" 50" ElementStyle="{StaticResource CenterAligned}"/>
+                    <!--<DataGridTextColumn Header="ИГЭ" Binding="{Binding Name}" Width=" 50" ElementStyle="{StaticResource CenterAligned}"/>-->
+                    <DataGridComboBoxColumn Header="ИГЭ" SelectedItemBinding="{Binding Name}" Width=" 80" ItemsSource="{Binding Source={StaticResource GroundEnum}}" />
                     <DataGridTextColumn Header="Отметка верха, м" Binding="{Binding LevelTop}" Width=" 60" ElementStyle="{StaticResource CenterAligned}"/>
                     <DataGridTextColumn Header="Отметка низа, м" Binding="{Binding LevelBot}" Width=" 60" ElementStyle="{StaticResource CenterAligned}"/>
                 </DataGrid.Columns>
             </DataGrid>
 
             <Label Content="Данные по скважине" HorizontalAlignment="Left" Margin="327,43,0,0" VerticalAlignment="Top"/>
-            <Button x:Name="cbAdBore" Content="Добавить" HorizontalAlignment="Left" Margin="358,308,0,0" VerticalAlignment="Top" Width="75" Click="cbAdBore_Click"/>
-            <Button x:Name="cbDelBore" Content="Удалить" HorizontalAlignment="Right" Margin="0,308,7,0" VerticalAlignment="Top" Width="75" Click="cbDel_Click" RenderTransformOrigin="0.587,-0.25"/>
-            <TextBox x:Name="tbNumbIGEInBore" HorizontalAlignment="Center" Height="23" Margin="413,276,90,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="44" TextAlignment="Center" RenderTransformOrigin="0.909,-0.478"/>
-            <Button x:Name="cbApplyBore" Content="Применить" HorizontalAlignment="Left" Margin="465,278,0,0" VerticalAlignment="Top" Width="75" Click="cbApplyBore_Click"/>
-            <Label Content="Кол-во слоев" HorizontalAlignment="Left" Margin="309,274,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.361,-7.038"/>
-            <TextBox x:Name="tbNameBorehole" HorizontalAlignment="Center" Height="23" Margin="409,20,43,0" TextWrapping="Wrap" Text="Скв1" VerticalAlignment="Top" Width="95" TextAlignment="Center" RenderTransformOrigin="0.909,-0.478"/>
+            <Button x:Name="cbAdLayerInBore" Content="Добавить" HorizontalAlignment="Left" Margin="392,292,0,0" VerticalAlignment="Top" Width="75" Click="cbAdLayerInBore_Click"/>
+            <Button x:Name="cbDelCurrentBore" Content="Удалить" HorizontalAlignment="Right" Margin="0,292,1,0" VerticalAlignment="Top" Width="76" RenderTransformOrigin="0.587,-0.25" Click="cbDelCurrentBore_Click"/>
+            <TextBox x:Name="tbNumbIGEInBore" HorizontalAlignment="Center" Height="19" Margin="410,269,93,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="44" TextAlignment="Center" RenderTransformOrigin="0.909,-0.478"/>
+            <Button x:Name="cbApplyCurrentBore" Content="Применить" HorizontalAlignment="Left" Margin="470,269,0,0" VerticalAlignment="Top" Width="76" Click="cbApplyLayer_Click"/>
+            <Label Content="Кол-во слоев" HorizontalAlignment="Left" Margin="317,265,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.361,-7.038"/>
+            <TextBox x:Name="tbNameBorehole" HorizontalAlignment="Center" Height="23" Margin="409,20,43,0" TextWrapping="Wrap" Text="1 Скв1" VerticalAlignment="Top" Width="95" TextAlignment="Center" RenderTransformOrigin="0.909,-0.478"/>
             <Label Content="Скважина:" HorizontalAlignment="Left" Margin="324,19,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.361,-7.038" IsEnabled="False" Foreground="Black"/>
             <DataGrid x:Name="DGBoreholes" ItemsSource="{Binding}" DataGridCell.Selected="DataGrid_GotFocus" ColumnHeaderStyle="{StaticResource DGridCentAl}" AutoGenerateColumns="False"  HorizontalAlignment="Center" Height="202" Margin="0,66,257,67" VerticalAlignment="Stretch" Width="290" ColumnHeaderHeight="40" SelectedCellsChanged="DGBoreholes_SelectedCellsChanged" >
                 <DataGrid.Columns>
@@ -217,8 +218,8 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <Button x:Name="cbAdBoreholes" Content="Добавить" HorizontalAlignment="Left" Margin="101,276,0,0" VerticalAlignment="Top" Width="75" Click="cbAdBoreholes_Click"/>
-            <Button x:Name="cbDelBoreholes" Content="Удалить" HorizontalAlignment="Right" Margin="0,275,267,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.587,-0.25" Click="cbDelBoreholes_Click"/>
+            <Button x:Name="cbAdBoreholes" Content="Добавить" HorizontalAlignment="Left" Margin="136,271,0,0" VerticalAlignment="Top" Width="75" Click="cbAdBoreholes_Click"/>
+            <Button x:Name="cbDelBoreholes" Content="Удалить" HorizontalAlignment="Right" Margin="0,271,257,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.587,-0.25" Click="cbDelBoreholes_Click"/>
             <Label Content="Данные по скважинам" HorizontalAlignment="Left" Margin="81,34,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.244,-0.346"/>
         </Grid>
         <Button Content="Button" Grid.Column="1" HorizontalAlignment="Left" Margin="625,574,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>

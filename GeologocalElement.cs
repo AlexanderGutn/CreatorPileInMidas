@@ -9,7 +9,8 @@ namespace CreatorPileInMidas
     class GeologocalElement
     {
         public int Number { get; set; }
-        public string NumberIGE { get; set; }
+        public string NameIGE { get; set; }
+        public string NumberNameIGE => Number +" "+ NameIGE;
         public GroundEnum GroundEnum { get; set; }
         public double e { get; set; }
         public double IL { get; set; }
@@ -137,7 +138,7 @@ namespace CreatorPileInMidas
 
         public GeologocalElement(string numberIGE, GroundEnum groundEnum, double e, double kUser, double IL)
         {
-            this.NumberIGE = numberIGE;
+            this.NameIGE = numberIGE;
             this.GroundEnum = groundEnum;
             this.e = e;
             this.IL = IL;
@@ -145,7 +146,7 @@ namespace CreatorPileInMidas
         }
         public GeologocalElement(string numberIGE, GroundEnum groundEnum, double e, double kUser)
         {
-            this.NumberIGE = numberIGE;
+            this.NameIGE = numberIGE;
             this.GroundEnum = groundEnum;
             this.e = e;
             this.IL = 0;
@@ -167,7 +168,7 @@ namespace CreatorPileInMidas
 
         public override string ToString()
         {
-            return NumberIGE + " " + GroundEnum + " e=" + e + " IL=" + IL + " K=" + K;
+            return NameIGE + " " + GroundEnum + " e=" + e + " IL=" + IL + " K=" + K;
         }
 
     }
