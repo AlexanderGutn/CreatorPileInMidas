@@ -31,6 +31,7 @@ namespace CreatorPileInMidas
         int prevDGIGEIndexColumn = -1;
 
         Borehole currentBorehol;
+        int numCurrentBorehol = -1;
         
 
         List<Borehole> ListBoreholes = new List<Borehole>();
@@ -40,7 +41,7 @@ namespace CreatorPileInMidas
         bool canDeleteItemBoreholes = false;
         bool canDeleteItemCurrentBoreholes = false;
 
-        List<LayerSoil> ListlayerSoilsSelectBorehole = new List<LayerSoil>();        
+        //List<LayerSoil> ListlayerSoilsSelectBorehole = new List<LayerSoil>();        
 
         DocForMidas docForMidas;
 
@@ -120,10 +121,16 @@ namespace CreatorPileInMidas
 
 
             currentBorehol = ListBoreholes[0];
-            //DGCurrentBorehole.ItemsSource = currentBorehol.LayerSoils;
-            DGCurrentBorehole.ItemsSource = ListlayerSoilsSelectBorehole;
-            ListlayerSoilsSelectBorehole.Clear();
-              
+            numCurrentBorehol = 0;
+            //DGCurrentBorehole.ItemsSource = currentBorehol.LayerSoils;            
+            DGCurrentBorehole.ItemsSource = ListBoreholes[numCurrentBorehol].LayerSoils;
+            //DGCurrentBorehole.ItemsSource = ListlayerSoilsSelectBorehole;-----------------------------------------
+
+            //DGCurrentBorehole.ItemsSource = currentBorehol.LayerSoils;////////////
+
+
+            //ListlayerSoilsSelectBorehole.Clear();
+
             DGCurrentBorehole.CanUserAddRows = false;
 
             //Привязка списка доступных значений для ComboBox
@@ -215,24 +222,28 @@ namespace CreatorPileInMidas
             DGBoreholes.Items.Refresh();            
 
             num = 1;
-            //foreach (var layerSoil in layerSoilsSelectBorehole)
-            foreach (var layerSoil in ListlayerSoilsSelectBorehole) //currentBorehol.LayerSoils
+            foreach (var layerSoil in ListBoreholes[numCurrentBorehol].LayerSoils)
             {
                 layerSoil.Number = num;
                 num++;
-                var n = layerSoil.Name;
-
-                
-                //{
-                //    int iIGE = ListGeoElements.Where(x => x.NumberNameIGE == layerSoil.Name).ToList()[0].Number;
-                //    layerSoil.GeologocalElement = new GeologocalElement(ListGeoElements[iIGE].NameIGE, 
-                //                            ListGeoElements[iIGE].GroundEnum, ListGeoElements[iIGE].e, ListGeoElements[iIGE].KUser);
-                //}
-                
-
-
-                //layerSoil.Name
             }
+
+
+            //обновление данных по скважине
+            //foreach (var layerSoil in currentBorehol.LayerSoils) //currentBorehol.LayerSoils
+            //{
+            //    layerSoil.Number = num;
+            //    num++;
+
+            //    foreach (var geo in ListGeoElements)
+            //    {
+            //        if (geo.NumberNameIGE == layerSoil.Name)
+            //        {
+            //            layerSoil.GeologocalElement = new GeologocalElement(geo.NameIGE, geo.GroundEnum, geo.e, geo.KUser);
+            //        }
+            //    }   
+            //}
+
             DGCurrentBorehole.CommitEdit();
             DGCurrentBorehole.CommitEdit();
             DGCurrentBorehole.Items.Refresh(); ;
@@ -243,6 +254,20 @@ namespace CreatorPileInMidas
             {
                 ListIGE.Add(item.NumberNameIGE);
             }
+
+            //добавление к текущей скважене слоев грунта
+            currentBorehol = ListBoreholes[numCurrentBorehol];
+            //currentBorehol.ClearLayerSoil();
+            //currentBorehol.AddLayerSoils(ListlayerSoilsSelectBorehole);
+
+            //foreach (var borehole in ListBoreholes)
+            //{
+            //    if(borehole.NumberName == currentBorehol.Name)
+            //    {
+            //        borehole.ClearLayerSoil();
+            //        borehole.AddLayerSoils(currentBorehol.LayerSoils);
+            //    }
+            //}
 
 
         }
@@ -274,16 +299,26 @@ namespace CreatorPileInMidas
         private void DGBoreholes_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
             //select = DGBoreholes.SelectedItem;
-            if (ListBoreholes.Count > 0)
+            if (ListBoreholes.Count > 0 && DGBoreholes.CurrentItem!=null)
             {
                 currentBorehol = DGBoreholes.CurrentItem as Borehole;
+                numCurrentBorehol = currentBorehol.Number-1;
+                //MessageBox.Show(numCurrentBorehol.ToString());
                 if (currentBorehol != null)
-                    tbNameBorehole.Text = currentBorehol.Number + " " + currentBorehol.Name;
+                {
+                    tbNameBorehole.Text = currentBorehol.NumberName;
+                    DGCurrentBorehole.ItemsSource = ListBoreholes[numCurrentBorehol].LayerSoils;
+                    //ListlayerSoilsSelectBorehole = currentBorehol.LayerSoils;
+                }
                 else
+                {
                     tbNameBorehole.Text = "";
+                    numCurrentBorehol = -1;
+                }                    
             }            
             //DGBoreholes.SelectedItem = select;
             canDeleteItemBoreholes = true;
+
 
             //ListlayerSoilsSelectBorehole = ListBoreholes.Where(x => x.Number == currentBorehol.Number).ToList()[0].LayerSoils;
 
@@ -292,21 +327,19 @@ namespace CreatorPileInMidas
 
         private void DGCurrentBorehole_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
             canDeleteItemCurrentBoreholes = true;
+            
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            currentBorehol.ClearLayerSoil();
-            currentBorehol.AddLayerSoils(ListlayerSoilsSelectBorehole);
-
-            ListBoreholes.Where(x => x.Number == currentBorehol.Number).ToList()[0].AddLayerSoils(ListlayerSoilsSelectBorehole); 
+            
 
         }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-
+            DGCurrentBorehole.ItemsSource = ListBoreholes[numCurrentBorehol].LayerSoils;
+            DGCurrentBorehole.Items.Refresh();
 
             int i = 1;
         }
@@ -318,17 +351,19 @@ namespace CreatorPileInMidas
             calcDataGrid();
         }
 
-        private void cbAdBoreholes_Click(object sender, RoutedEventArgs e)
+        private void cbAddBoreholes_Click(object sender, RoutedEventArgs e)
         {
             ListBoreholes.Add(new Borehole("Скв"));
             calcDataGrid();
         }
 
-        private void cbAdLayerInBore_Click(object sender, RoutedEventArgs e)
+        private void cbAddLayerInBore_Click(object sender, RoutedEventArgs e)
         {
             //ListlayerSoilsSelectBorehole.Add(new LayerSoil(0, new GeologocalElement("123", GroundEnum.Глина, 0, 0), 0, 0));
-            ListlayerSoilsSelectBorehole.Add(new LayerSoil("new"));
-
+            //ListlayerSoilsSelectBorehole.Add(new LayerSoil("new"));
+            //currentBorehol.AddLayerSoil(new LayerSoil("new"));
+            ListBoreholes[numCurrentBorehol].AddLayerSoil(new LayerSoil(0,"слой1" ,new GeologocalElement("123", GroundEnum.Глина, 0, 0), 0, 0));
+            DGCurrentBorehole.Items.Refresh(); ;
             calcDataGrid();
         }
 
@@ -355,20 +390,21 @@ namespace CreatorPileInMidas
         private void cbApplyLayer_Click(object sender, RoutedEventArgs e)
         {
             GetTB();
-            if (ListlayerSoilsSelectBorehole.Count < numbIGEinBore)
+            if (ListBoreholes[numCurrentBorehol].LayerSoils.Count < numbIGEinBore)
             {
-                for (int i = ListlayerSoilsSelectBorehole.Count; i < numbIGEinBore; i++)
+                for (int i = ListBoreholes[numCurrentBorehol].LayerSoils.Count; i < numbIGEinBore; i++)
                 {
                     //ListlayerSoilsSelectBorehole.Add(new LayerSoil(0, new GeologocalElement("123", GroundEnum.Глина, 0, 0), 0, 0));
-                    ListlayerSoilsSelectBorehole.Add(new LayerSoil("123"));
+                    ListBoreholes[numCurrentBorehol].LayerSoils.Add(new LayerSoil("123"));
 
                 }
             }
             else
             {
-                for (int i = ListlayerSoilsSelectBorehole.Count; i > numbIGEinBore; i--)
+                for (int i = ListBoreholes[numCurrentBorehol].LayerSoils.Count; i > numbIGEinBore; i--)
                 {
-                    ListlayerSoilsSelectBorehole.RemoveAt(ListlayerSoilsSelectBorehole.Count - 1);
+                    //ListlayerSoilsSelectBorehole.RemoveAt(ListlayerSoilsSelectBorehole.Count - 1);
+                    ListBoreholes[numCurrentBorehol].LayerSoils.RemoveAt(ListBoreholes[numCurrentBorehol].LayerSoils.Count - 1);
                 }
             }
             calcDataGrid();
@@ -425,13 +461,14 @@ namespace CreatorPileInMidas
 
                 for (int i = 0; i < numSelect; i++)
                 {
-                    ListlayerSoilsSelectBorehole.Remove(DGCurrentBorehole.SelectedItems[i] as LayerSoil);
+                    //ListlayerSoilsSelectBorehole.Remove(DGCurrentBorehole.SelectedItems[i] as LayerSoil);
+                    ListBoreholes[numCurrentBorehol].RemoveLayerSoil(DGCurrentBorehole.SelectedItems[i] as LayerSoil);
                 }
                 canDeleteItemCurrentBoreholes = false;
             }
-            else if (ListlayerSoilsSelectBorehole.Count > 0)
+            else if (ListBoreholes[numCurrentBorehol].LayerSoils.Count > 0)
             {
-                ListlayerSoilsSelectBorehole.RemoveAt(ListlayerSoilsSelectBorehole.Count - 1);
+                ListBoreholes[numCurrentBorehol].LayerSoils.RemoveAt(ListBoreholes[numCurrentBorehol].LayerSoils.Count - 1);
             }
             calcDataGrid();
         }
@@ -454,9 +491,12 @@ namespace CreatorPileInMidas
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             calcDataGrid();
-            DGTableIGE.Items.Refresh();
-            DGBoreholes.Items.Refresh();
-            DGCurrentBorehole.Items.Refresh();
+            //DGTableIGE.Items.Refresh();
+            //DGBoreholes.Items.Refresh();
+            //DGCurrentBorehole.Items.Refresh();
+
+
+            var q = currentBorehol;
         }
 
         private void DataGrid_GotFocus(object sender, RoutedEventArgs e)
@@ -471,6 +511,9 @@ namespace CreatorPileInMidas
             }
         }
 
-
+        private void DGCurrentBorehole_CurrentCellChanged(object sender, EventArgs e)
+        {
+            var v = DGCurrentBorehole.SelectedCells;
+        }
     }
 }

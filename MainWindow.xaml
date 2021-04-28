@@ -114,7 +114,7 @@
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="ИГЭ"  Binding="{Binding NumberIGE}" Width=" 50" ElementStyle="{StaticResource CenterAligned}"/>
+                    <DataGridTextColumn Header="ИГЭ"  Binding="{Binding NameIGE}" Width=" 50" ElementStyle="{StaticResource CenterAligned}"/>
                     <DataGridComboBoxColumn Header="Наименование грунта"  Width=" 135" SelectedItemBinding="{Binding GroundEnum}"  ItemsSource="{Binding Source={StaticResource GroundEnum}}"/>
                     <DataGridTextColumn Header="IL" Binding="{Binding IL}" Width=" 50" ElementStyle="{StaticResource CenterAligned}" />
                     <DataGridTextColumn Header="e" Binding="{Binding e}" Width=" 50" ElementStyle="{StaticResource CenterAligned}" />
@@ -160,7 +160,7 @@
         <Grid Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="335" Margin="524,79,0,0" VerticalAlignment="Top" Width="547">
             <!--<DataGrid x:Name="DGTableIGE2" ColumnHeaderStyle="{StaticResource DGridCentAl}" Height="254" Margin="3,29,2,0" VerticalAlignment="Top" HorizontalContentAlignment="Center"
                   ItemsSource="{Binding}" AutoGenerateColumns="False" SelectedCellsChanged="DGTableIGE_SelectedCellsChanged">-->
-            <DataGrid x:Name="DGCurrentBorehole" ItemsSource="{Binding}" AutoGenerateColumns="False" ColumnHeaderStyle="{StaticResource DGridCentAl}"  HorizontalAlignment="Center" Height="202" Margin="296,65,1,68" VerticalAlignment="Stretch" Width="250" ColumnHeaderHeight="40" GotFocus="DataGrid_GotFocus" SelectionChanged="DGCurrentBorehole_SelectionChanged" >
+            <DataGrid x:Name="DGCurrentBorehole" ItemsSource="{Binding}" AutoGenerateColumns="False" ColumnHeaderStyle="{StaticResource DGridCentAl}"  HorizontalAlignment="Center" Height="202" Margin="296,65,1,68" VerticalAlignment="Stretch" Width="250" ColumnHeaderHeight="40" GotFocus="DataGrid_GotFocus" SelectionChanged="DGCurrentBorehole_SelectionChanged" CurrentCellChanged="DGCurrentBorehole_CurrentCellChanged" >
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="N" Binding="{Binding Number, Mode=OneTime}" Width="30" ElementStyle="{StaticResource CenterAligned}" IsReadOnly="true">
                         <DataGridTextColumn.CellStyle>
@@ -177,7 +177,7 @@
             </DataGrid>
 
             <Label Content="Данные по скважине" HorizontalAlignment="Left" Margin="327,43,0,0" VerticalAlignment="Top"/>
-            <Button x:Name="cbAdLayerInBore" Content="Добавить" HorizontalAlignment="Left" Margin="392,292,0,0" VerticalAlignment="Top" Width="75" Click="cbAdLayerInBore_Click"/>
+            <Button x:Name="cbAdLayerInBore" Content="Добавить" HorizontalAlignment="Left" Margin="392,292,0,0" VerticalAlignment="Top" Width="75" Click="cbAddLayerInBore_Click"/>
             <Button x:Name="cbDelCurrentBore" Content="Удалить" HorizontalAlignment="Right" Margin="0,292,1,0" VerticalAlignment="Top" Width="76" RenderTransformOrigin="0.587,-0.25" Click="cbDelCurrentBore_Click"/>
             <TextBox x:Name="tbNumbIGEInBore" HorizontalAlignment="Center" Height="19" Margin="410,269,93,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="44" TextAlignment="Center" RenderTransformOrigin="0.909,-0.478"/>
             <Button x:Name="cbApplyCurrentBore" Content="Применить" HorizontalAlignment="Left" Margin="470,269,0,0" VerticalAlignment="Top" Width="76" Click="cbApplyLayer_Click"/>
@@ -218,12 +218,12 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <Button x:Name="cbAdBoreholes" Content="Добавить" HorizontalAlignment="Left" Margin="136,271,0,0" VerticalAlignment="Top" Width="75" Click="cbAdBoreholes_Click"/>
+            <Button x:Name="cbAdBoreholes" Content="Добавить" HorizontalAlignment="Left" Margin="136,271,0,0" VerticalAlignment="Top" Width="75" Click="cbAddBoreholes_Click"/>
             <Button x:Name="cbDelBoreholes" Content="Удалить" HorizontalAlignment="Right" Margin="0,271,257,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.587,-0.25" Click="cbDelBoreholes_Click"/>
             <Label Content="Данные по скважинам" HorizontalAlignment="Left" Margin="81,34,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.244,-0.346"/>
         </Grid>
         <Button Content="Button" Grid.Column="1" HorizontalAlignment="Left" Margin="625,574,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <Button Content="Button" Grid.Column="1" HorizontalAlignment="Left" Margin="642,454,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+        <Button Content="Button1" Grid.Column="1" HorizontalAlignment="Left" Margin="642,454,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
         <Button x:Name="_123" Content="Button" Grid.Column="1" HorizontalAlignment="Left" Margin="531,445,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_2" RenderTransformOrigin="0.5,0.5">
             <Button.RenderTransform>
                 <TransformGroup>
@@ -234,6 +234,7 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
+        <Button Content="Применить настройки слоев" Grid.Column="1" HorizontalAlignment="Left" Margin="575,86,0,0" VerticalAlignment="Top" Width="178"/>
 
 
 
