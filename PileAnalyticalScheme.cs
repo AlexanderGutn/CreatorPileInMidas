@@ -208,6 +208,8 @@ namespace CreatorPileInMidas
         B20,
         B25,
         B30,
+        B35,
+        B40
     }
 
 
