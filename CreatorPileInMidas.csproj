@@ -62,12 +62,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CreatorNode.cs" />
-    <Compile Include="DGWinForm.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="DGWinForm.Designer.cs">
-      <DependentUpon>DGWinForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="DimmyElementT.cs" />
     <Compile Include="DocForMidas.cs" />
     <Compile Include="INode.cs" />
@@ -111,9 +105,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="DGWinForm.resx">
-      <DependentUpon>DGWinForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

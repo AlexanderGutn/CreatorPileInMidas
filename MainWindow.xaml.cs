@@ -125,9 +125,7 @@ namespace CreatorPileInMidas
 
         //Установка значений по умолчанию и связывание
         private void Initialization()
-        {
-            DGWinForm dGWinForm = new DGWinForm();
-
+        {   
             DGTableIGE.ItemsSource = ListGeoElements;
             DGBoreholes.ItemsSource = ListBoreholes;
             ListBoreholes.Add(new Borehole("Скв1"));
