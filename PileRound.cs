@@ -14,7 +14,7 @@ namespace CreatorPileInMidas
         public override double bpy => bpx;
 
         public PileRound(double diameter, double levelTop, double length, Borehole borehole, double levelOfLocalErosion) 
-            : base(TypeCrossSectionEnum.Round, levelTop, length, borehole, levelOfLocalErosion)
+            : base(TypeCrossSectionEnum.Круглое, levelTop, length, borehole, levelOfLocalErosion)
         {
             Diameter = diameter;
         }

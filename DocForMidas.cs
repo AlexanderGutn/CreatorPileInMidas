@@ -95,6 +95,12 @@ namespace CreatorPileInMidas
                 case MaterialEnum.B30:
                     stringBuilder.AppendLine("100, CONC , B30               , 0, 0, , C, NO, 0.05, 1, GOST-SNIP(RC),            , B30           , NO, 3.31408e+009");
                     break;
+                case MaterialEnum.B35:
+                    stringBuilder.AppendLine("100, CONC , B35               , 0, 0, , C, NO, 0.05, 1, GOST-SNIP(RC),            , B35           , NO, 3.51802e+006");
+                    break;
+                case MaterialEnum.B40:
+                    stringBuilder.AppendLine("100, CONC , B40               , 0, 0, , C, NO, 0.05, 1, GOST-SNIP(RC),            , B40           , NO, 3.67098e+006");
+                    break;
                 default:
                     break;
             }
@@ -208,10 +214,10 @@ namespace CreatorPileInMidas
 
             switch (PileAnalyticalScheme.Pile.TypeCrossSection)
             {
-                case TypeCrossSectionEnum.Round:
+                case TypeCrossSectionEnum.Круглое:
                     stringBuilder.AppendLine($"100, DBUSER    , D{dimension1}m             , CC, 0, 0, 0, 0, 0, 0, YES, NO, SR , 2, {dimension1}, 0, 0, 0, 0, 0, 0, 0, 0, 0");
                     break;
-                case TypeCrossSectionEnum.Rectangular:
+                case TypeCrossSectionEnum.Прямоугольное:
                     stringBuilder.AppendLine($"100, DBUSER    , {dimension1}x{dimension2}         , CC, 0, 0, 0, 0, 0, 0, YES, NO, SB , 2, {dimension1}, {dimension2}, 0, 0, 0, 0, 0, 0, 0, 0");
                     break;
                 default:

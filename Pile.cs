@@ -8,8 +8,8 @@ namespace CreatorPileInMidas
 {
     enum TypeCrossSectionEnum
     {
-        Round,
-        Rectangular
+        Круглое,
+        Прямоугольное
     }
     class Pile
     {

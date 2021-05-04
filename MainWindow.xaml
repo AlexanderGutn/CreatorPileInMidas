@@ -60,7 +60,7 @@
                     <ColumnDefinition Width="73*"/>
                     <ColumnDefinition Width="194*"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox x:Name="cbTypeCrossSection" HorizontalAlignment="Left" Margin="-1,27,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="1" SelectionChanged="cbTypeCrossSection_SelectionChanged" Grid.ColumnSpan="4">
+                <ComboBox x:Name="cbTypeCrossSection" HorizontalAlignment="Left" Margin="-1,26,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="1" SelectionChanged="cbTypeCrossSection_SelectionChanged" Grid.ColumnSpan="4">
                     <TextBlock HorizontalAlignment="Center"><Run Text="Круглое"/></TextBlock>
                     <TextBlock HorizontalAlignment="Center"><Run Text="Прямоугольное"/></TextBlock>
                 </ComboBox>
@@ -74,7 +74,7 @@
                 <Label x:Name="labDim1_Copy1" Content="Отметка верха сваи" HorizontalAlignment="Left" Margin="42,123,0,0" VerticalAlignment="Top" Grid.Column="2" Grid.ColumnSpan="2"/>
                 <TextBox x:Name="tbTopPile" HorizontalAlignment="Left" Height="20" Margin="-1,125,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top" Width="50" Text="85" Grid.ColumnSpan="3"/>
                 <TextBox x:Name="tbLevelOfLocalErosion" HorizontalAlignment="Left" Height="20" Margin="-1,150,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top" Width="50" Text="80" Grid.ColumnSpan="3"/>
-                <ComboBox x:Name="cbClassBeton" HorizontalAlignment="Left" Margin="2,1,0,0" VerticalAlignment="Top" Width="50" SelectedIndex="1" Height="22" Grid.ColumnSpan="3">
+                <ComboBox x:Name="cbClassBeton" HorizontalAlignment="Left" Margin="-1,1,0,0" VerticalAlignment="Top" Width="50" SelectedIndex="1" Height="22" Grid.ColumnSpan="3">
                     <TextBlock><Run Text="B20"/></TextBlock>
                     <TextBlock><Run Text="B25"/></TextBlock>
                     <TextBlock><Run Text="B30"/></TextBlock>
@@ -90,7 +90,7 @@
             <Canvas Margin="2,5,11,6">
                 <CheckBox x:Name="chbCreateCrossSection" Content="Создать сечение" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="16"/>
                 <CheckBox x:Name="chbCreateMaterial" Content="Создать материал" Height="15" VerticalAlignment="Top" Width="125"/>
-                <TextBox x:Name="tbStep" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top" Width="50" Text="0.35" RenderTransformOrigin="0.5,0.5" Canvas.Left="1" Canvas.Top="34"/>
+                <TextBox x:Name="tbStep" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top" Width="50" Text="1.0" RenderTransformOrigin="0.5,0.5" Canvas.Left="1" Canvas.Top="34"/>
                 <TextBox x:Name="tbText_Copy" HorizontalAlignment="Left" Height="34" TextWrapping="Wrap" TextAlignment="Left" VerticalAlignment="Top" Width="120" Text="Шаг разбивки сваи в модели, м" BorderBrush="White" IsReadOnlyCaretVisible="True" Canvas.Left="52" Canvas.Top="28"/>
             </Canvas>
         </GroupBox>

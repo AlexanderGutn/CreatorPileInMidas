@@ -579,11 +579,11 @@ namespace CreatorPileInMidas
 
             switch (typeCrossSectionEnum)
             {
-                case TypeCrossSectionEnum.Round:
+                case TypeCrossSectionEnum.Круглое:
                     pile = new PileRound(sidePileX, levelTopPile, lengthPile, ListBoreholes[numCurrentBorehol], levelOfLocalErosion);
 
                     break;
-                case TypeCrossSectionEnum.Rectangular:
+                case TypeCrossSectionEnum.Прямоугольное:
                     pile = new PileRectangular(sidePileX, sidePileY, levelTopPile, lengthPile, ListBoreholes[numCurrentBorehol], levelOfLocalErosion);
                     break;
                 default:
@@ -595,6 +595,9 @@ namespace CreatorPileInMidas
 
             if (isLayerForPile && isLayerBelowPile) //Ниже сваи есть грунты
             {
+                pile.CoordinateTopX = CoordX;
+                pile.CoordinateTopY = CoordY;
+
                 var a = pile.LayerSoilsBelowGrillage;
                 var a1 = pile.LayerSoilsAtPileLevel;
 

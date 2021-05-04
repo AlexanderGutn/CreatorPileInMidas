@@ -160,7 +160,7 @@ namespace CreatorPileInMidas
 
             //Определение поверхности грунта (с учетом уровня размыва)
             double levelTopGround = (Pile.LevelOfLocalErosion == 0) ? Pile.LevelTopPile : Pile.LevelOfLocalErosion;
-
+            
             nodes.Add(Node.CreateNode(Pile.CoordinateTopX, Pile.CoordinateTopY, Pile.LevelTopPile));
             nodes.Add(Node.CreateNode(Pile.CoordinateTopX, Pile.CoordinateTopY, levelTopGround - Step / 2));
 

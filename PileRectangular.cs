@@ -15,7 +15,7 @@ namespace CreatorPileInMidas
         public override double bpy => SideY < 0.8 ? 1.5 * SideY + 0.5 : SideY + 1;
 
         public PileRectangular(double sideX, double sideY, double levelTop, double length, Borehole borehole, double levelOfLocalErosion) 
-            : base(TypeCrossSectionEnum.Rectangular, levelTop, length, borehole, levelOfLocalErosion)
+            : base(TypeCrossSectionEnum.Прямоугольное, levelTop, length, borehole, levelOfLocalErosion)
         {
             SideX = sideX;
             SideY = sideY;            
