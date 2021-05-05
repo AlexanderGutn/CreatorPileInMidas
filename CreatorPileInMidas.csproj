@@ -61,7 +61,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CreatorNode.cs" />
     <Compile Include="DimmyElementT.cs" />
     <Compile Include="DocForMidas.cs" />
     <Compile Include="INode.cs" />

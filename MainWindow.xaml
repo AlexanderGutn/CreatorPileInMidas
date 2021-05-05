@@ -230,8 +230,8 @@
                     </DataGridTextColumn>
                     <!--<DataGridTextColumn Header="ИГЭ" Binding="{Binding Name}" Width=" 50" ElementStyle="{StaticResource CenterAligned}"/>-->
                     <DataGridComboBoxColumn Header="ИГЭ" SelectedItemBinding="{Binding Name}" Width=" 80" ItemsSource="{Binding Source={StaticResource GroundEnum}}" />
-                    <DataGridTextColumn Header="Отметка верха, м" Binding="{Binding LevelTop}" Width=" 60" ElementStyle="{StaticResource CenterAligned}"/>
-                    <DataGridTextColumn Header="Отметка низа, м" Binding="{Binding LevelBot}" Width=" 60" ElementStyle="{StaticResource CenterAligned}"/>
+                    <DataGridTextColumn Header="Отметка верха, м" Binding="{Binding LevelTop}" Width=" 85" ElementStyle="{StaticResource CenterAligned}"/>
+                    <DataGridTextColumn Header="Отметка низа, м" Binding="{Binding LevelBot}" Width=" 85" ElementStyle="{StaticResource CenterAligned}"/>
                 </DataGrid.Columns>
             </DataGrid>
 

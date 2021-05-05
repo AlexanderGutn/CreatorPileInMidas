@@ -8,7 +8,7 @@ namespace CreatorPileInMidas
 {
     class Node : INode
     {
-        public static int Count = 1;
+        //public static int Count = 1;
         public int Number { get; set; }
         public double X { get; set; }
         public double Y { get; set; }
@@ -19,7 +19,7 @@ namespace CreatorPileInMidas
             X = x;
             Y = y;
             Z = z;
-            Count++;
+            //Count++;
         }
 
         public override string ToString()
@@ -27,9 +27,9 @@ namespace CreatorPileInMidas
             return $"{Number},{X},{Y},{Z}";
         }
 
-        public static Node CreateNode(double x, double y, double z)
+        public static Node CreateNode(int number, double x, double y, double z)
         {
-            return new Node(Node.Count, x, y, z);
+            return new Node(number, x, y, z);
         }
     }
 }

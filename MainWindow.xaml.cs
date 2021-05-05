@@ -240,16 +240,6 @@ namespace CreatorPileInMidas
                 }
                 //добавление к текущей скважене слоев грунта
                 currentBorehol = ListBoreholes[numCurrentBorehol];
-
-                //double levelBotPrevLayer = 0;
-                //for (int i = 0; i < ListBoreholes[numCurrentBorehol].LayerSoils.Count; i++)
-                //{
-                //    if (i > 0)
-                //    {
-                //        ListBoreholes[numCurrentBorehol].LayerSoils[i].LevelTop = levelBotPrevLayer;
-                //    }
-                //    levelBotPrevLayer = ListBoreholes[numCurrentBorehol].LayerSoils[i].LevelBot;
-                //}
             }
 
             DGCurrentBorehole.CommitEdit();
@@ -301,7 +291,7 @@ namespace CreatorPileInMidas
                 currentBorehol = DGBoreholes.CurrentItem as Borehole;
                 numCurrentBorehol = currentBorehol.Number-1;
                 //MessageBox.Show(numCurrentBorehol.ToString());
-                if (currentBorehol != null)
+                if (currentBorehol != null && numCurrentBorehol < ListBoreholes.Count)
                 {
                     tbNameBorehole.Text = currentBorehol.NumberName;
                     DGCurrentBorehole.ItemsSource = ListBoreholes[numCurrentBorehol].LayerSoils;
@@ -577,11 +567,11 @@ namespace CreatorPileInMidas
             Double.TryParse(tbCoordY.Text, out CoordY);
             Double.TryParse(tbCoordZ.Text, out CoordZ);
 
+            var curbore = ListBoreholes[numCurrentBorehol];
             switch (typeCrossSectionEnum)
             {
                 case TypeCrossSectionEnum.Круглое:
                     pile = new PileRound(sidePileX, levelTopPile, lengthPile, ListBoreholes[numCurrentBorehol], levelOfLocalErosion);
-
                     break;
                 case TypeCrossSectionEnum.Прямоугольное:
                     pile = new PileRectangular(sidePileX, sidePileY, levelTopPile, lengthPile, ListBoreholes[numCurrentBorehol], levelOfLocalErosion);
@@ -589,7 +579,7 @@ namespace CreatorPileInMidas
                 default:
                     break;
             }
-
+            var ww = pile.Borehole;
             bool isLayerForPile = ListBoreholes[numCurrentBorehol].LevelTop > levelTopPile - lengthPile;
             bool isLayerBelowPile = ListBoreholes[numCurrentBorehol].LevelBot < levelTopPile - lengthPile;
 
@@ -597,6 +587,7 @@ namespace CreatorPileInMidas
             {
                 pile.CoordinateTopX = CoordX;
                 pile.CoordinateTopY = CoordY;
+                pile.CoordinateTopZ = CoordZ;
 
                 var a = pile.LayerSoilsBelowGrillage;
                 var a1 = pile.LayerSoilsAtPileLevel;
