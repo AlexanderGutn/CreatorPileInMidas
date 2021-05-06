@@ -67,13 +67,13 @@
                 <Label Content="Тип поперечного сечения" HorizontalAlignment="Left" Margin="39,24,0,0" VerticalAlignment="Top" Grid.Column="3"/>
                 <Label x:Name="labDim1" Content="Размер Х" HorizontalAlignment="Left" Margin="42,49,0,0" VerticalAlignment="Top" Grid.Column="2" Grid.ColumnSpan="2"/>
                 <TextBox x:Name="tbDim1" Height="20" Margin="-1,51,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top" Text="0.35" Grid.ColumnSpan="3" HorizontalAlignment="Left" Width="50"/>
-                <TextBox x:Name="tbDim2" HorizontalAlignment="Left" Height="20" Margin="-1,75,0,-4" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top" Width="50" Text="0.35" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="3"/>
-                <Label x:Name="labDim2" Content="Размер Y" HorizontalAlignment="Left" Margin="42,71,0,-6" VerticalAlignment="Top" Grid.Column="2" Grid.ColumnSpan="2" />
-                <Label x:Name="labDim1_Copy" Content="Длина сваи" HorizontalAlignment="Left" Margin="42,98,0,0" VerticalAlignment="Top" Grid.Column="2" Grid.ColumnSpan="2"/>
-                <TextBox x:Name="tbLenghtPile" HorizontalAlignment="Left" Height="20" Margin="-1,100,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top" Width="50" Text="10.2" Grid.ColumnSpan="3"/>
-                <Label x:Name="labDim1_Copy1" Content="Отметка верха сваи" HorizontalAlignment="Left" Margin="42,123,0,0" VerticalAlignment="Top" Grid.Column="2" Grid.ColumnSpan="2"/>
-                <TextBox x:Name="tbTopPile" HorizontalAlignment="Left" Height="20" Margin="-1,125,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top" Width="50" Text="85" Grid.ColumnSpan="3"/>
-                <TextBox x:Name="tbLevelOfLocalErosion" HorizontalAlignment="Left" Height="20" Margin="-1,150,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top" Width="50" Text="80" Grid.ColumnSpan="3"/>
+                <TextBox x:Name="tbDim2" HorizontalAlignment="Left" Height="20" Margin="-1,74,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top" Width="50" Text="0.35" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="3"/>
+                <Label x:Name="labDim2" Content="Размер Y" HorizontalAlignment="Left" Margin="42,70,0,0" VerticalAlignment="Top" Grid.Column="2" Grid.ColumnSpan="2" />
+                <Label x:Name="labDim1_Copy" Content="Длина сваи" HorizontalAlignment="Left" Margin="42,96,0,0" VerticalAlignment="Top" Grid.Column="2" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="tbLenghtPile" HorizontalAlignment="Left" Height="20" Margin="-1,98,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top" Width="50" Text="10.2" Grid.ColumnSpan="3"/>
+                <Label x:Name="labDim1_Copy1" Content="Отметка верха сваи" HorizontalAlignment="Left" Margin="42,120,0,0" VerticalAlignment="Top" Grid.Column="2" Grid.ColumnSpan="2"/>
+                <TextBox x:Name="tbTopPile" HorizontalAlignment="Left" Height="20" Margin="-1,122,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top" Width="50" Text="85" Grid.ColumnSpan="3"/>
+                <TextBox x:Name="tbLevelOfLocalErosion" HorizontalAlignment="Left" Height="20" Margin="-1,146,0,0" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top" Width="50" Text="80" Grid.ColumnSpan="3"/>
                 <ComboBox x:Name="cbClassBeton" HorizontalAlignment="Left" Margin="-1,1,0,0" VerticalAlignment="Top" Width="50" SelectedIndex="1" Height="22" Grid.ColumnSpan="3">
                     <TextBlock><Run Text="B20"/></TextBlock>
                     <TextBlock><Run Text="B25"/></TextBlock>
@@ -82,20 +82,33 @@
                     <TextBlock><Run Text="B40"/></TextBlock>
                 </ComboBox>
                 <Label Content="Класс бетона" Margin="45,-2,0,0" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Width="84" RenderTransformOrigin="1.071,-0.346" Grid.ColumnSpan="2" Grid.Column="2"/>
-                <TextBox x:Name="tbText" HorizontalAlignment="Left" Height="35" Margin="41,142,0,-7" TextWrapping="Wrap" TextAlignment="Left" VerticalAlignment="Top" Width="157" Text="Отметка местного размыва (при наличии)" Grid.ColumnSpan="2" BorderBrush="White" IsReadOnlyCaretVisible="True" Grid.Column="2"/>
+                <TextBox x:Name="tbText" HorizontalAlignment="Left" Height="35" Margin="41,138,0,-3" TextWrapping="Wrap" TextAlignment="Left" VerticalAlignment="Top" Width="157" Text="Отметка местного размыва (при наличии)" Grid.ColumnSpan="2" BorderBrush="White" IsReadOnlyCaretVisible="True" Grid.Column="2"/>
 
             </Grid>
         </GroupBox>
-        <GroupBox Header="Параметры создаваемого кода" HorizontalAlignment="Left" Height="87" VerticalAlignment="Top" Width="212" Margin="301,13,0,0" Grid.ColumnSpan="2">
-            <Canvas Margin="2,5,11,6">
+        <GroupBox Header="Параметры создаваемого кода" HorizontalAlignment="Left" Height="141" VerticalAlignment="Top" Width="212" Margin="301,13,0,0" Grid.ColumnSpan="2">
+            <Canvas Margin="2,5,-1,6">
                 <CheckBox x:Name="chbCreateCrossSection" Content="Создать сечение" HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Top="16"/>
                 <CheckBox x:Name="chbCreateMaterial" Content="Создать материал" Height="15" VerticalAlignment="Top" Width="125"/>
                 <TextBox x:Name="tbStep" HorizontalAlignment="Left" Height="20" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Top" Width="50" Text="1.0" RenderTransformOrigin="0.5,0.5" Canvas.Left="1" Canvas.Top="34"/>
-                <TextBox x:Name="tbText_Copy" HorizontalAlignment="Left" Height="34" TextWrapping="Wrap" TextAlignment="Left" VerticalAlignment="Top" Width="120" Text="Шаг разбивки сваи в модели, м" BorderBrush="White" IsReadOnlyCaretVisible="True" Canvas.Left="52" Canvas.Top="28"/>
+                <TextBox x:Name="tbText_Copy" HorizontalAlignment="Left" Height="34" TextWrapping="Wrap" TextAlignment="Left" VerticalAlignment="Top" Width="120" Text="Шаг разбивки сваи в модели, м" BorderBrush="White" IsReadOnlyCaretVisible="True" Canvas.Left="52" Canvas.Top="28" RenderTransformOrigin="0.5,0.5">
+                    <TextBox.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="1" ScaleX="1"/>
+                            <SkewTransform AngleY="0" AngleX="0"/>
+                            <RotateTransform Angle="0"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </TextBox.RenderTransform>
+                </TextBox>
+                <TextBox x:Name="tbNumbStartNode" HorizontalAlignment="Left" Height="18" TextWrapping="Wrap" TextAlignment="Center" Text="500" VerticalAlignment="Top" Width="50" Canvas.Left="1" Canvas.Top="57"/>
+                <Label Content="Начальный номер узлов" HorizontalAlignment="Left" VerticalAlignment="Top" Height="27" Width="145" Canvas.Left="50" Canvas.Top="53"/>
+                <TextBox x:Name="tbNumbStartElement" HorizontalAlignment="Left" Height="18" TextWrapping="Wrap" TextAlignment="Center" Text="500" VerticalAlignment="Top" Width="50" Canvas.Left="1" Canvas.Top="78"/>
+                <Label Content="Начальный номер эл-ов" HorizontalAlignment="Left" VerticalAlignment="Top" Height="28" Width="155" Canvas.Left="50" Canvas.Top="73"/>
             </Canvas>
         </GroupBox>
 
-        <GroupBox Grid.Column="1" Header="Координаты верха сваи в Midas, м" HorizontalAlignment="Left" Height="62" Margin="301,100,0,0" VerticalAlignment="Top" Width="212">
+        <GroupBox Grid.Column="1" Header="Координаты верха сваи в Midas, м" HorizontalAlignment="Left" Height="62" Margin="300,150,0,0" VerticalAlignment="Top" Width="212">
             <Grid HorizontalAlignment="Left" Height="61" Margin="-7,-10,0,-15" VerticalAlignment="Top" Width="202">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="197*"/>
@@ -111,7 +124,7 @@
         </GroupBox>
         <Grid Grid.ColumnSpan="2" Margin="14,205,0,5" HorizontalAlignment="Left" Width="501">
             <DataGrid x:Name="DGTableIGE" DataGridCell.Selected="DataGrid_GotFocus" ColumnHeaderStyle="{StaticResource DGridCentAl}" Margin="-1,29,0,25" HorizontalContentAlignment="Center"
-                  ItemsSource="{Binding}"  AutoGenerateColumns="False" SelectionUnit="Cell" SelectedCellsChanged="DGTableIGE_SelectedCellsChanged" SelectionChanged="DGTableIGE_SelectionChanged" KeyUp="DGTableIGE_KeyUp" HorizontalAlignment="Left" Width="496">
+                  ItemsSource="{Binding}"  AutoGenerateColumns="False" SelectionUnit="Cell" SelectedCellsChanged="DGTableIGE_SelectedCellsChanged" HorizontalAlignment="Left" Width="496">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="N" Binding="{Binding Number, Mode=OneTime}" Width=" 30" ElementStyle="{StaticResource CenterAligned}" IsReadOnly="True">
                         <DataGridTextColumn.CellStyle>
@@ -143,7 +156,7 @@
             </DataGrid>
 
             <Label Content="Таблица физ-мех свойст грунтов" HorizontalAlignment="Left" Margin="6,6,0,0" VerticalAlignment="Top"/>
-            <Button x:Name="bAdd" Content="Добавить" Margin="0,0,85,3" Click="cbAddIGE_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+            <Button x:Name="bAddIGE" Content="Добавить" Margin="0,0,85,3" Click="cbAddIGE_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
             <Button x:Name="bDelIGE" Content="Удалить" Margin="0,0,6,3" Click="cbDelIGE_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
             <TextBox x:Name="tbNumbIGE" HorizontalAlignment="Right" Margin="0,0,291,3" TextWrapping="Wrap" Text="5" Width="42" TextAlignment="Center" RenderTransformOrigin="0.909,-0.478" Height="20" VerticalAlignment="Bottom"/>
             <Button x:Name="bApplyIGE" Content="Применить" Margin="0,0,213,3" Click="cbApplyIGE_Click" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom"/>
@@ -166,31 +179,31 @@
         <Grid Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="248" Margin="520,1,0,0" VerticalAlignment="Top" Width="293">
             <!--<DataGrid x:Name="DGTableIGE2" ColumnHeaderStyle="{StaticResource DGridCentAl}" Height="254" Margin="3,29,2,0" VerticalAlignment="Top" HorizontalContentAlignment="Center"
                   ItemsSource="{Binding}" AutoGenerateColumns="False" SelectedCellsChanged="DGTableIGE_SelectedCellsChanged">-->
-            <DataGrid x:Name="DGBoreholes" ItemsSource="{Binding}" DataGridCell.Selected="DataGrid_GotFocus" ColumnHeaderStyle="{StaticResource DGridCentAl}" AutoGenerateColumns="False"  HorizontalAlignment="Left" Height="202" Margin="1,19,0,0" VerticalAlignment="Top" Width="290" ColumnHeaderHeight="40" SelectedCellsChanged="DGBoreholes_SelectedCellsChanged" >
+            <DataGrid x:Name="DGBoreholes" ItemsSource="{Binding}" DataGridCell.Selected="DataGrid_GotFocus" ColumnHeaderStyle="{StaticResource DGridCentAl}" AutoGenerateColumns="False"  HorizontalAlignment="Left" Height="202" Margin="1,19,0,0" VerticalAlignment="Top" Width="290" ColumnHeaderHeight="40" SelectedCellsChanged="DGBoreholes_SelectedCellsChanged">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="N" Binding="{Binding Number, Mode=OneTime}" Width="30" ElementStyle="{StaticResource CenterAligned}" IsReadOnly="true">
+                    <DataGridTextColumn Header="N" CanUserSort="False" Binding="{Binding Number, Mode=OneTime}" Width="30" ElementStyle="{StaticResource CenterAligned}" IsReadOnly="true">
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="{x:Type DataGridCell}">
                                 <Setter Property="Background" Value="{StaticResource clBr}" />
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Скважина" Binding="{Binding Name}" Width=" 70" ElementStyle="{StaticResource CenterAligned}"/>
-                    <DataGridTextColumn Header="Отметка верха, м" Binding="{Binding LevelTop, Mode=OneTime}" Width=" 60" ElementStyle="{StaticResource CenterAligned}" IsReadOnly="true">
+                    <DataGridTextColumn Header="Скважина" CanUserSort="False" Binding="{Binding Name}" Width=" 70" ElementStyle="{StaticResource CenterAligned}"/>
+                    <DataGridTextColumn Header="Отметка верха, м" CanUserSort="False" Binding="{Binding LevelTop, Mode=OneTime}" Width=" 60" ElementStyle="{StaticResource CenterAligned}" IsReadOnly="true">
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="{x:Type DataGridCell}">
                                 <Setter Property="Background" Value="{StaticResource clBr}" />
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Отметка низа, м" Binding="{Binding LevelBot, Mode=OneTime}" Width=" 60" ElementStyle="{StaticResource CenterAligned}" IsReadOnly="true">
+                    <DataGridTextColumn Header="Отметка низа, м" CanUserSort="False" Binding="{Binding LevelBot, Mode=OneTime}" Width=" 60" ElementStyle="{StaticResource CenterAligned}" IsReadOnly="true">
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="{x:Type DataGridCell}">
                                 <Setter Property="Background" Value="{StaticResource clBr}" />
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Глубина, м" Binding="{Binding Depth, Mode=OneTime}" Width=" 60" ElementStyle="{StaticResource CenterAligned}" IsReadOnly="true">
+                    <DataGridTextColumn Header="Глубина, м" CanUserSort="False" Binding="{Binding Depth, Mode=OneTime}" Width=" 60" ElementStyle="{StaticResource CenterAligned}" IsReadOnly="true">
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="{x:Type DataGridCell}">
                                 <Setter Property="Background" Value="{StaticResource clBr}" />
@@ -204,34 +217,22 @@
             <Button x:Name="bDelBoreholes" Content="Удалить" HorizontalAlignment="Left" Margin="216,226,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.587,-0.25" Click="cbDelBoreholes_Click"/>
             <Label Content="Данные по скважинам" HorizontalAlignment="Left" Margin="5,-4,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.244,-0.346"/>
         </Grid>
-        <Button Content="Button" Grid.Column="1" HorizontalAlignment="Left" Margin="371,201,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <Button Content="Button1" Grid.Column="1" HorizontalAlignment="Left" Margin="418,175,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
-        <Button x:Name="_123" Content="Button2" Grid.Column="1" HorizontalAlignment="Left" Margin="312,187,0,0" VerticalAlignment="Top" Width="59" Click="Button_Click_2" RenderTransformOrigin="0.5,0.5">
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-87.164"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Button.RenderTransform>
-        </Button>
         <Grid Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="515,249,0,5" Width="300">
             <!--<DataGrid x:Name="DGTableIGE2" ColumnHeaderStyle="{StaticResource DGridCentAl}" Height="254" Margin="3,29,2,0" VerticalAlignment="Top" HorizontalContentAlignment="Center"
                   ItemsSource="{Binding}" AutoGenerateColumns="False" SelectedCellsChanged="DGTableIGE_SelectedCellsChanged">-->
             <DataGrid x:Name="DGCurrentBorehole" ItemsSource="{Binding}" AutoGenerateColumns="False" ColumnHeaderStyle="{StaticResource DGridCentAl}" Margin="5,44,5,49" VerticalAlignment="Stretch" ColumnHeaderHeight="40" GotFocus="DataGrid_GotFocus" SelectionChanged="DGCurrentBorehole_SelectionChanged" CurrentCellChanged="DGCurrentBorehole_CurrentCellChanged" >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="N" Binding="{Binding Number, Mode=OneTime}" Width="30" ElementStyle="{StaticResource CenterAligned}" IsReadOnly="true">
+                    <DataGridTextColumn Header="N" CanUserSort="False" Binding="{Binding Number, Mode=OneTime}" Width="30" ElementStyle="{StaticResource CenterAligned}" IsReadOnly="true">
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="{x:Type DataGridCell}">
                                 <Setter Property="Background" Value="{StaticResource clBr}" />
                             </Style>
                         </DataGridTextColumn.CellStyle>
                     </DataGridTextColumn>
-                    <!--<DataGridTextColumn Header="ИГЭ" Binding="{Binding Name}" Width=" 50" ElementStyle="{StaticResource CenterAligned}"/>-->
-                    <DataGridComboBoxColumn Header="ИГЭ" SelectedItemBinding="{Binding Name}" Width=" 80" ItemsSource="{Binding Source={StaticResource GroundEnum}}" />
-                    <DataGridTextColumn Header="Отметка верха, м" Binding="{Binding LevelTop}" Width=" 85" ElementStyle="{StaticResource CenterAligned}"/>
-                    <DataGridTextColumn Header="Отметка низа, м" Binding="{Binding LevelBot}" Width=" 85" ElementStyle="{StaticResource CenterAligned}"/>
+                    <!--<DataGridComboBoxColumn Header="ИГЭ" CanUserSort="False" SelectedItemBinding="{Binding Name}" Width=" 80" ItemsSource="{Binding Source={StaticResource GroundEnum}}" />-->
+                    <DataGridComboBoxColumn Header="ИГЭ" CanUserSort="False" SelectedItemBinding="{Binding Name}" Width=" 80" />
+                    <DataGridTextColumn Header="Отметка верха, м" CanUserSort="False" Binding="{Binding LevelTop}" Width=" 85" ElementStyle="{StaticResource CenterAligned}"/>
+                    <DataGridTextColumn Header="Отметка низа, м" CanUserSort="False" Binding="{Binding LevelBot}" Width=" 85" ElementStyle="{StaticResource CenterAligned}"/>
                 </DataGrid.Columns>
             </DataGrid>
 
