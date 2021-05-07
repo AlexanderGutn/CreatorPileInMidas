@@ -52,7 +52,10 @@ namespace CreatorPileInMidas
         bool canDeleteItemIGE = false;
         bool canDeleteItemBoreholes = false;
         bool canDeleteItemCurrentBoreholes = false; 
-        DocForMidas docForMidas;   
+        DocForMidas docForMidas;
+        int NumbStartNode;
+        int NumbStartElement;
+
 
         public MainWindow()
         {
@@ -201,6 +204,8 @@ namespace CreatorPileInMidas
             Double.TryParse(tbCoordX.Text, out CoordX);
             Double.TryParse(tbCoordY.Text, out CoordY);
             Double.TryParse(tbCoordZ.Text, out CoordZ);
+            Int32.TryParse(tbNumbStartNode.Text, out NumbStartNode);
+            Int32.TryParse(tbNumbStartElement.Text, out NumbStartElement);            
 
             var curbore = ListBoreholes[numCurrentBorehol];
             switch (typeCrossSectionEnum)
@@ -227,7 +232,7 @@ namespace CreatorPileInMidas
                 var a = pile.LayerSoilsBelowGrillage;
                 var a1 = pile.LayerSoilsAtPileLevel;
 
-                PileAnalyticalScheme pileAnalyticalScheme = new PileAnalyticalScheme(pile, step);
+                PileAnalyticalScheme pileAnalyticalScheme = new PileAnalyticalScheme(pile, step, NumbStartNode, NumbStartElement);
                 var temp = pileAnalyticalScheme.SpringStiffnesHoriz;
 
                 docForMidas = new DocForMidas(pileAnalyticalScheme, materialEnum, sidePileX, sidePileY);
@@ -496,6 +501,8 @@ namespace CreatorPileInMidas
         private void bCreateCodeForMidas_Click(object sender, RoutedEventArgs e)
         {
             MainMethod();
+            Clipboard.Clear();
+            Clipboard.SetText(tbCommand.Text);
         }
 
         private void timerTick(object sender, EventArgs e)

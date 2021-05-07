@@ -17,6 +17,9 @@ namespace CreatorPileInMidas
         public List<Node> Nodes { get => nodes; }
         public List<MidasNode> MidasNodes { get => midasNodes; }
         public List<MidasBeamElement> MidasBeamElements { get => midasBeamElements; }
+        public int StartNumNode { get; set; }
+        public int StartNumElement { get; set; }
+
 
         public List<SpringStiffnesHoriz> SpringStiffnesHoriz  //можно переписать по данным Nodes
         {
@@ -139,10 +142,12 @@ namespace CreatorPileInMidas
             }
         }
 
-        public PileAnalyticalScheme(Pile pile, double step)
+        public PileAnalyticalScheme(Pile pile, double step, int startNumNode, int startNumElement)
         {
             Pile = pile;
             Step = step;
+            StartNumNode = startNumNode;
+            StartNumElement = startNumElement;
             SpringStiffnesVert = new SpringStiffnesVert(Pile.UnderlyingLayer, Pile.Length);
             Initialaze();
         }
@@ -157,29 +162,29 @@ namespace CreatorPileInMidas
         private void FillingNodes()
         {
             nodes = new List<Node>();
-            int n = 1;
+            int startNumNode = StartNumNode;
             //Определение поверхности грунта (с учетом уровня размыва)
             double levelTopGround = (Pile.LevelOfLocalErosion == 0) ? Pile.LevelTopPile : Pile.LevelOfLocalErosion;
 
             //nodes.Add(Node.CreateNode(n, Pile.CoordinateTopX, Pile.CoordinateTopY, Pile.LevelTopPile)); n++;
-            nodes.Add(Node.CreateNode(n, Pile.CoordinateTopX, Pile.CoordinateTopY, Pile.CoordinateTopZ)); n++;
-            nodes.Add(Node.CreateNode(n, Pile.CoordinateTopX, Pile.CoordinateTopY, Pile.CoordinateTopZ - Pile.LevelTopPile + levelTopGround - Step / 2)); n++;
+            nodes.Add(Node.CreateNode(startNumNode, Pile.CoordinateTopX, Pile.CoordinateTopY, Pile.CoordinateTopZ)); startNumNode++;
+            nodes.Add(Node.CreateNode(startNumNode, Pile.CoordinateTopX, Pile.CoordinateTopY, Pile.CoordinateTopZ - Pile.LevelTopPile + levelTopGround - Step / 2)); startNumNode++;
 
             double remainsPile = levelTopGround - Pile.LevelBotPile - Step / 2;
             int index = 2;
 
             while (remainsPile - Step > 0)
             {
-                nodes.Add(Node.CreateNode(n, Pile.CoordinateTopX, Pile.CoordinateTopY, nodes[index - 1].Z - Step)); n++;
+                nodes.Add(Node.CreateNode(startNumNode, Pile.CoordinateTopX, Pile.CoordinateTopY, nodes[index - 1].Z - Step)); startNumNode++;
                 remainsPile -= Step;
                 index++;
             }
 
             //Заполнение последнего элемента 56КЭ
             if (remainsPile > Step / 2)
-                nodes.Add(Node.CreateNode(n, Pile.CoordinateTopX, Pile.CoordinateTopY, nodes[index - 1].Z - remainsPile / 2)); n++;
+                nodes.Add(Node.CreateNode(startNumNode, Pile.CoordinateTopX, Pile.CoordinateTopY, nodes[index - 1].Z - remainsPile / 2)); startNumNode++;
 
-            nodes.Add(Node.CreateNode(n, Pile.CoordinateTopX, Pile.CoordinateTopY, Pile.CoordinateTopZ - (Pile.LevelTopPile - Pile.LevelBotPile)));
+            nodes.Add(Node.CreateNode(startNumNode, Pile.CoordinateTopX, Pile.CoordinateTopY, Pile.CoordinateTopZ - (Pile.LevelTopPile - Pile.LevelBotPile)));
         }
 
         private void FillingMidasNodes()
@@ -196,9 +201,9 @@ namespace CreatorPileInMidas
         {
             midasBeamElements = new List<MidasBeamElement>();
 
-            for (int i = 1; i < nodes.Count; i++)
+            for (int i = StartNumNode; i < nodes.Count + StartNumNode - 1; i++)
             {
-                midasBeamElements.Add(new MidasBeamElement(i, 100, 100, i, i + 1));
+                midasBeamElements.Add(new MidasBeamElement(i - StartNumNode + StartNumElement, 100, 100, i, i + 1));
             }
         }
     }
