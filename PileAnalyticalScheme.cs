@@ -182,7 +182,10 @@ namespace CreatorPileInMidas
 
             //Заполнение последнего элемента 56КЭ
             if (remainsPile > Step / 2)
-                nodes.Add(Node.CreateNode(startNumNode, Pile.CoordinateTopX, Pile.CoordinateTopY, nodes[index - 1].Z - remainsPile / 2)); startNumNode++;
+            {
+                nodes.Add(Node.CreateNode(startNumNode, Pile.CoordinateTopX, Pile.CoordinateTopY, nodes[index - 1].Z - remainsPile / 2));
+                startNumNode++;
+            }                
 
             nodes.Add(Node.CreateNode(startNumNode, Pile.CoordinateTopX, Pile.CoordinateTopY, Pile.CoordinateTopZ - (Pile.LevelTopPile - Pile.LevelBotPile)));
         }

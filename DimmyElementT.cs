@@ -28,7 +28,7 @@ namespace CreatorPileInMidas
                     {
                         sum += ListH[i] * ListK[i];
                     }
-                    return sum / ListH.Count;
+                    return sum / Height;/////////////////////////
                 }
             }
         }

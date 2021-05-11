@@ -12,13 +12,15 @@ namespace CreatorPileInMidas
         public MaterialEnum Material { get; set; }
         public double Side1 { get; }
         public double Side2 { get; }
+        public int NumbStartNode { get; set; }        
 
-        public DocForMidas(PileAnalyticalScheme pileAnalyticalScheme, MaterialEnum material, double side1, double side2)
+        public DocForMidas(PileAnalyticalScheme pileAnalyticalScheme, MaterialEnum material, double side1, double side2, int numbStartNode)
         {
             PileAnalyticalScheme = pileAnalyticalScheme;
             Material = material;
             Side1 = side1;
             Side2 = side2;
+            NumbStartNode = numbStartNode;
         }
 
         public string WriteDoc()
@@ -238,14 +240,14 @@ namespace CreatorPileInMidas
             stringBuilder.AppendLine(" ");
             stringBuilder.AppendLine(s);
 
-            int i = 2;
+            int i = NumbStartNode+1;
             foreach (var item in PileAnalyticalScheme.SpringStiffnesHoriz)
             {
                 stringBuilder.AppendLine($"{i}, LINEAR, {item.RX}, {item.RY}, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, , 0, 0, 0, 0, 0");
                 i++;
             }
             stringBuilder.AppendLine($"{i}, LINEAR, 0, 0, {PileAnalyticalScheme.SpringStiffnesVert.Rz}, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, , 0, 0, 0, 0, 0");
-
+                        
             return stringBuilder.ToString();
         }
     }

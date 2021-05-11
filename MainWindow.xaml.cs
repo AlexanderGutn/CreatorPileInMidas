@@ -56,11 +56,10 @@ namespace CreatorPileInMidas
         int NumbStartNode;
         int NumbStartElement;
 
-
         public MainWindow()
         {
             InitializeComponent();
-            Initialization();            
+            Initialization();  
 
             Debug.Print("Начало");
             //GeologocalElement geologocalElement1 = new GeologocalElement("ИГЭ1", GroundEnum.Песок_крупный, 0.55, 100);
@@ -122,6 +121,12 @@ namespace CreatorPileInMidas
 
             //Привязка списка доступных значений для ComboBox
             (DGCurrentBorehole.Columns[1] as DataGridComboBoxColumn).ItemsSource = ListIGE;
+
+
+            ListGeoElements.Add(new GeologocalElement("ИГЭ1", GroundEnum.Песок_крупный, 0.6, 0));
+            ListBoreholes[0].AddLayerSoil(new LayerSoil(1, "1", ListGeoElements[0], 100, 20));
+            tbLevelOfLocalErosion.Text = "0";
+            
         }
 
         //Считать данные с элементов управления
@@ -235,9 +240,10 @@ namespace CreatorPileInMidas
                 PileAnalyticalScheme pileAnalyticalScheme = new PileAnalyticalScheme(pile, step, NumbStartNode, NumbStartElement);
                 var temp = pileAnalyticalScheme.SpringStiffnesHoriz;
 
-                docForMidas = new DocForMidas(pileAnalyticalScheme, materialEnum, sidePileX, sidePileY);
-
+                docForMidas = new DocForMidas(pileAnalyticalScheme, materialEnum, sidePileX, sidePileY, NumbStartNode);                
                 tbCommand.Text = docForMidas.WriteDoc();
+                tbNumbStartNode.Text = (NumbStartNode + docForMidas.PileAnalyticalScheme.Nodes.Count).ToString();    //////////////////////
+                tbNumbStartElement.Text = (NumbStartElement + docForMidas.PileAnalyticalScheme.MidasBeamElements.Count).ToString();    //////////////////////
             }
             else
             {
