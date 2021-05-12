@@ -136,7 +136,8 @@ namespace CreatorPileInMidas
             numbIGE = numbIGE > 0 ? numbIGE : 0;
 
             int.TryParse(tbNumbIGEInBore.Text, out numbIGEinBore);
-            numbIGEinBore = numbIGEinBore > 0 ? numbIGEinBore : 0;
+            numbIGEinBore = numbIGEinBore > 0 ? numbIGEinBore : 0; 
+
         }
 
         private void calcDataGrid()
@@ -196,22 +197,32 @@ namespace CreatorPileInMidas
         void MainMethod()
         {
             calcDataGrid();
-            Enum.TryParse(cbClassBeton.Text, out materialEnum);
-            Enum.TryParse(cbTypeCrossSection.Text, out typeCrossSectionEnum);
-            Double.TryParse(tbDim1.Text, out sidePileX);
-            Double.TryParse(tbDim2.Text, out sidePileY);
-            Double.TryParse(tbLenghtPile.Text, out lengthPile);
-            Double.TryParse(tbTopPile.Text, out levelTopPile);
-            Double.TryParse(tbLevelOfLocalErosion.Text, out levelOfLocalErosion);
+            //Enum.TryParse(cbClassBeton.Text, out materialEnum);
+            //Enum.TryParse(cbTypeCrossSection.Text, out typeCrossSectionEnum);
+            //Double.TryParse(tbDim1.Text, out sidePileX);
+            //Double.TryParse(tbDim2.Text, out sidePileY);
+            //Double.TryParse(tbLenghtPile.Text, out lengthPile);
+            //Double.TryParse(tbTopPile.Text, out levelTopPile);
+            //Double.TryParse(tbLevelOfLocalErosion.Text, out levelOfLocalErosion);
             isCreateMaterial = (bool)chbCreateMaterial.IsChecked;
             isCreateCrossSection = (bool)chbCreateCrossSection.IsChecked;
-            Double.TryParse(tbStep.Text, out step);
-            Double.TryParse(tbCoordX.Text, out CoordX);
-            Double.TryParse(tbCoordY.Text, out CoordY);
-            Double.TryParse(tbCoordZ.Text, out CoordZ);
+            //Double.TryParse(tbStep.Text, out step);
+            //Double.TryParse(tbCoordX.Text, out CoordX);
+            //Double.TryParse(tbCoordY.Text, out CoordY);
+            //Double.TryParse(tbCoordZ.Text, out CoordZ);
             Int32.TryParse(tbNumbStartNode.Text, out NumbStartNode);
-            Int32.TryParse(tbNumbStartElement.Text, out NumbStartElement);            
+            Int32.TryParse(tbNumbStartElement.Text, out NumbStartElement);
 
+            Double.TryParse(tbDim1.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator),out sidePileX);
+            Double.TryParse(tbDim2.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator), out sidePileY);
+            Double.TryParse(tbLenghtPile.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator), out lengthPile);
+            Double.TryParse(tbTopPile.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator), out levelTopPile);
+            Double.TryParse(tbLevelOfLocalErosion.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator), out levelOfLocalErosion);
+            Double.TryParse(tbStep.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator), out step);
+            Double.TryParse(tbCoordX.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator), out CoordX);
+            Double.TryParse(tbCoordY.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator), out CoordY);
+            Double.TryParse(tbCoordZ.Text.Replace(".", System.Globalization.CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator), out CoordZ);
+           
             var curbore = ListBoreholes[numCurrentBorehol];
             switch (typeCrossSectionEnum)
             {
@@ -518,6 +529,15 @@ namespace CreatorPileInMidas
         private void btRefresh_Click(object sender, RoutedEventArgs e)
         {
             calcDataGrid();
+        }
+
+        private void btManual_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(@"    Программа предназначена для создания одной сваи в программе Midas Civil, используя командную оболочку. Программа позволяет по указанным координатам вставки сваи создать узлы, стрежневые КЭ, поперечное сечение, материал, жесткость линейных пружин, моделирующих грунтовое основание в горизонтальном и вертикальном направлении согласно СП24.13330.2011.
+    При необходимости создать несколько свай следует:
+    1.Ввести данные по грунтам, параметрам сваи и нажать кнопку «Создать и скопировать код для Midas!». Открыть командную оболочку Midas Civil и запустить код.
+    2.Для создания следующей сваи, следует изменить координаты верха сваи, и другие параметры при необходимости.","Справка");
+
         }
     }
 }

@@ -24,7 +24,11 @@ namespace CreatorPileInMidas
 
         public override string ToString()
         {
-            return $"{Number},{X},{Y},{Z}";
+            string Xx = X.ToString().Replace(",",".");
+            string Yy = Y.ToString().Replace(",", ".");
+            string Zz = Z.ToString().Replace(",", ".");
+
+            return $"{Number},{Xx},{Yy},{Zz}";
         }
     }
 

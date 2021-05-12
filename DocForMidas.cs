@@ -214,13 +214,18 @@ namespace CreatorPileInMidas
             stringBuilder.AppendLine(" ");
             stringBuilder.AppendLine(s);
 
+            string dim1 = dimension1.ToString().Replace(",", ".");
+            string dim2 = dimension2.ToString().Replace(",", ".");
+
+
+
             switch (PileAnalyticalScheme.Pile.TypeCrossSection)
             {
                 case TypeCrossSectionEnum.Круглое:
-                    stringBuilder.AppendLine($"100, DBUSER    , D{dimension1}m             , CC, 0, 0, 0, 0, 0, 0, YES, NO, SR , 2, {dimension1}, 0, 0, 0, 0, 0, 0, 0, 0, 0");
+                    stringBuilder.AppendLine($"100, DBUSER    , D{dim1}m             , CC, 0, 0, 0, 0, 0, 0, YES, NO, SR , 2, {dim1}, 0, 0, 0, 0, 0, 0, 0, 0, 0");
                     break;
                 case TypeCrossSectionEnum.Прямоугольное:
-                    stringBuilder.AppendLine($"100, DBUSER    , {dimension1}x{dimension2}         , CC, 0, 0, 0, 0, 0, 0, YES, NO, SB , 2, {dimension1}, {dimension2}, 0, 0, 0, 0, 0, 0, 0, 0");
+                    stringBuilder.AppendLine($"100, DBUSER    , {dim1}x{dim2}         , CC, 0, 0, 0, 0, 0, 0, YES, NO, SB , 2, {dim1}, {dim2}, 0, 0, 0, 0, 0, 0, 0, 0");
                     break;
                 default:
                     break;
@@ -243,10 +248,10 @@ namespace CreatorPileInMidas
             int i = NumbStartNode+1;
             foreach (var item in PileAnalyticalScheme.SpringStiffnesHoriz)
             {
-                stringBuilder.AppendLine($"{i}, LINEAR, {item.RX}, {item.RY}, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, , 0, 0, 0, 0, 0");
+                stringBuilder.AppendLine($"{i}, LINEAR, {Math.Round(item.RX,0)}, {Math.Round(item.RY)}, 0, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, , 0, 0, 0, 0, 0");
                 i++;
             }
-            stringBuilder.AppendLine($"{i}, LINEAR, 0, 0, {PileAnalyticalScheme.SpringStiffnesVert.Rz}, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, , 0, 0, 0, 0, 0");
+            stringBuilder.AppendLine($"{i}, LINEAR, 0, 0, {Math.Round(PileAnalyticalScheme.SpringStiffnesVert.Rz)}, 0, 0, 0, NO, 0, 0, 0, 0, 0, 0, , 0, 0, 0, 0, 0");
                         
             return stringBuilder.ToString();
         }

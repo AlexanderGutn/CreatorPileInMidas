@@ -82,7 +82,7 @@
                     <TextBlock><Run Text="B40"/></TextBlock>
                 </ComboBox>
                 <Label Content="Класс бетона" Margin="45,-2,0,0" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Width="84" RenderTransformOrigin="1.071,-0.346" Grid.ColumnSpan="2" Grid.Column="2"/>
-                <TextBox x:Name="tbText" HorizontalAlignment="Left" Height="35" Margin="41,138,0,-3" TextWrapping="Wrap" TextAlignment="Left" VerticalAlignment="Top" Width="157" Text="Отметка местного размыва (при наличии)" Grid.ColumnSpan="2" BorderBrush="White" IsReadOnlyCaretVisible="True" Grid.Column="2"/>
+                <TextBox x:Name="tbText" HorizontalAlignment="Left" Height="35" Margin="41,140,0,-5" TextWrapping="Wrap" TextAlignment="Left" VerticalAlignment="Top" Width="157" Text="Отметка местного размыва (при наличии)" Grid.ColumnSpan="2" BorderBrush="White" IsReadOnlyCaretVisible="True" Grid.Column="2"/>
 
             </Grid>
         </GroupBox>
@@ -162,7 +162,7 @@
             <Button x:Name="bApplyIGE" Content="Применить" Margin="0,0,213,3" Click="cbApplyIGE_Click" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Bottom"/>
             <Label Content="Кол-во слоев" HorizontalAlignment="Right" Margin="0,0,332,0" Height="25" VerticalAlignment="Bottom"/>
         </Grid>
-        <Grid Grid.ColumnSpan="2" Margin="816,12,2,4">
+        <Grid Grid.ColumnSpan="2" Margin="816,12,2,31">
             <Grid.RowDefinitions>
                 <RowDefinition/>
             </Grid.RowDefinitions>
@@ -172,7 +172,16 @@
                 <ColumnDefinition Width="26*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="bCreateCodeAndCopyForMidas" Content="Создать и скопировать код для Midas" Margin="2,3,3,0" Click="bCreateCodeForMidas_Click" Grid.ColumnSpan="3" Height="23" VerticalAlignment="Top"/>
-            <TextBox x:Name="tbCommand" Margin="2,28,3,4" TextWrapping="Wrap" Grid.ColumnSpan="3"/>
+            <TextBox x:Name="tbCommand" Margin="2,28,3,4" TextWrapping="Wrap" Grid.ColumnSpan="3" RenderTransformOrigin="0.5,0.5">
+                <TextBox.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="-0.05"/>
+                        <RotateTransform/>
+                        <TranslateTransform X="-0.249"/>
+                    </TransformGroup>
+                </TextBox.RenderTransform>
+            </TextBox>
         </Grid>
 
         <Grid Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="248" Margin="520,1,0,0" VerticalAlignment="Top" Width="293">
@@ -246,7 +255,8 @@
             <!--<DataGrid x:Name="DGTableIGE2" ColumnHeaderStyle="{StaticResource DGridCentAl}" Height="254" Margin="3,29,2,0" VerticalAlignment="Top" HorizontalContentAlignment="Center"
                   ItemsSource="{Binding}" AutoGenerateColumns="False" SelectedCellsChanged="DGTableIGE_SelectedCellsChanged">-->
         </Grid>
-        <Button x:Name="btRefresh" Content="Обновить данные" Grid.Column="1" HorizontalAlignment="Left" Margin="399,202,0,0" VerticalAlignment="Top" Width="110" Click="btRefresh_Click"/>
+        <Button x:Name="btRefresh" Content="Обновить данные" Grid.Column="1" HorizontalAlignment="Left" Margin="398,202,0,0" VerticalAlignment="Top" Width="111" Click="btRefresh_Click"/>
+        <Button x:Name="btManual" Content="Справка" Grid.Column="1" Margin="0,0,6,8" Click="btManual_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="94"/>
 
 
 
