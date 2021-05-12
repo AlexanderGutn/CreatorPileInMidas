@@ -76,56 +76,57 @@ namespace CreatorPileInMidas
                     {
                         case GroundEnum.Глина:
                             if (-1 <= IL && IL <= 0)
-                                result = InterpolationSingle(-1, 0, 30000, 18000, IL);
+                                result = InterpolationSingle(-1, 0, 10000, 6000, IL);
                             else if (0 <= IL && IL <= 0.5)
-                                result = InterpolationSingle(0, 0.5, 18000, 12000, IL);
+                                result = InterpolationSingle(0, 0.5, 6000, 4000, IL);
                             else if (0.5 <= IL && IL <= 0.75)
-                                result = InterpolationSingle(0.5, 0.75, 12000, 7000, IL);
+                                result = InterpolationSingle(0.5, 0.75, 4000, 2350, IL);
                             else if (0.75 <= IL && IL <= 1)
-                                result = InterpolationSingle(0.75, 1, 7000, 4000, IL);
+                                result = InterpolationSingle(0.75, 1, 2350, 1350, IL);
                             break;
                         case GroundEnum.Суглинок:
                             if (-1 <= IL && IL <= 0)
-                                result = InterpolationSingle(-1, 0, 30000, 18000, IL);
+                                result = InterpolationSingle(-1, 0, 10000, 6000, IL);
                             else if (0 <= IL && IL <= 0.5)
-                                result = InterpolationSingle(0, 0.5, 18000, 12000, IL);
+                                result = InterpolationSingle(0, 0.5, 6000, 4000, IL);
                             else if (0.5 <= IL && IL <= 0.75)
-                                result = InterpolationSingle(0.5, 0.75, 12000, 7000, IL);
+                                result = InterpolationSingle(0.5, 0.75, 4000, 2350, IL);
                             else if (0.75 <= IL && IL <= 1)
-                                result = InterpolationSingle(0.75, 1, 7000, 4000, IL);
+                                result = InterpolationSingle(0.75, 1, 2350, 1350, IL);
                             break;
-                        case GroundEnum.Супесь:
+                    case GroundEnum.Супесь:
                             if (-1 <= IL && IL <= 0)
-                                result = InterpolationSingle(-1, 0, 18000, 12000, IL);
+                                result = InterpolationSingle(-1, 0, 6000, 4000, IL);
                             else if (0 <= IL && IL <= 0.5)
-                                result = InterpolationSingle(0, 0.5, 12000, 8667, IL);
+                                result = InterpolationSingle(0, 0.5, 4000, 2889, IL);
                             else if (0.5 <= IL && IL <= 0.75)
-                                result = InterpolationSingle(0.5, 0.75, 8667, 7000, IL);
+                                result = InterpolationSingle(0.5, 0.75, 2889, 2350, IL);
                             break;
                         case GroundEnum.Лёссовый_грунт:  //Принял как супесь
-                            if (-1 <= IL && IL <= 0)
-                                result = InterpolationSingle(-1, 0, 18000, 12000, IL);
-                            else if (0 <= IL && IL <= 0.5)
-                                result = InterpolationSingle(0, 0.5, 12000, 8667, IL);
-                            else if (0.5 <= IL && IL <= 0.75)
-                                result = InterpolationSingle(0.5, 0.75, 8667, 7000, IL);
-                            break;
-                        case GroundEnum.Песок_пылеватый:
-                            result = InterpolationSingle(0.6, 0.8, 12000, 7000, e);
+                        if (-1 <= IL && IL <= 0)
+                            result = InterpolationSingle(-1, 0, 6000, 4000, IL);
+                        else if (0 <= IL && IL <= 0.5)
+                            result = InterpolationSingle(0, 0.5, 4000, 2889, IL);
+                        else if (0.5 <= IL && IL <= 0.75)
+                            result = InterpolationSingle(0.5, 0.75, 2889, 2350, IL);
+                        break;
+                    case GroundEnum.Песок_пылеватый:
+                            result = InterpolationSingle(0.6, 0.8, 4000, 2350, e);
                             break;
                         case GroundEnum.Песок_мелкий:
-                            result = InterpolationSingle(0.6, 0.75, 18000, 12000, e);
+                            result = InterpolationSingle(0.6, 0.75, 6000, 4000, e);
                             break;
                         case GroundEnum.Песок_средней_крупности:
-                            result = InterpolationSingle(0.55, 0.7, 18000, 12000, e);
+                            result = InterpolationSingle(0.55, 0.7, 6000, 4000, e);
                             break;
                         case GroundEnum.Песок_крупный:
-                            result = InterpolationSingle(0.55, 0.7, 30000, 18000, e);
+                            result = InterpolationSingle(0.55, 0.7, 10000, 6000, e);
                             break;
                         case GroundEnum.Песок_гравилистый:
-                            result = InterpolationSingle(0.55, 0.7, 100000, 50000, e);
+                            result = InterpolationSingle(0.55, 0.7, 33350, 16750, e);
                             break;
                         case GroundEnum.Торф_ил:
+                        result = 10;
                             break;
                         default:
                             break;

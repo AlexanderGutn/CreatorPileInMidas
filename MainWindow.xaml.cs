@@ -123,7 +123,7 @@ namespace CreatorPileInMidas
             (DGCurrentBorehole.Columns[1] as DataGridComboBoxColumn).ItemsSource = ListIGE;
 
 
-            ListGeoElements.Add(new GeologocalElement("ИГЭ1", GroundEnum.Песок_крупный, 0.6, 0));
+            ListGeoElements.Add(new GeologocalElement("ИГЭ1", GroundEnum.Песок_крупный, 0.55, 0));
             ListBoreholes[0].AddLayerSoil(new LayerSoil(1, "1", ListGeoElements[0], 100, 20));
             tbLevelOfLocalErosion.Text = "0";
             
@@ -515,6 +515,9 @@ namespace CreatorPileInMidas
         {
         }
 
-
+        private void btRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            calcDataGrid();
+        }
     }
 }
